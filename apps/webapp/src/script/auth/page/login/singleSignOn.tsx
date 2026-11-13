@@ -36,7 +36,6 @@ import {
   H1,
   IsMobile,
   Link,
-  Logo,
   Muted,
   Overlay,
   QUERY,
@@ -54,6 +53,7 @@ import {getLogger} from 'Util/logger';
 import {SingleSignOnForm} from './singleSignOnForm';
 
 import {Config} from '../../../Config';
+import {NovaLogo} from '../../component/NovaLogo';
 import {AppAlreadyOpen} from '../../component/AppAlreadyOpen';
 import {BackButton} from '../../component/BackButton';
 import {RootState, bindActionCreators} from '../../module/reducer';
@@ -201,7 +201,7 @@ const SingleSignOnComponent = ({hasDefaultSSOCode}: Props & ConnectedProps & Dis
         <Overlay>
           <Container centerText style={{color: COLOR.WHITE, maxWidth: '330px'}}>
             <div style={{alignItems: 'center', display: 'flex', justifyContent: 'center', marginBottom: '30px'}}>
-              <Logo height={24} color={COLOR.WHITE} ariaLabel={t('accessibility.logo.wire')} />
+              <NovaLogo variant="compact" width={150} />
             </div>
             <Text
               style={{fontSize: '0.875rem', fontWeight: 400, marginTop: '32px'}}
@@ -240,13 +240,7 @@ const SingleSignOnComponent = ({hasDefaultSSOCode}: Props & ConnectedProps & Dis
 
       <Container centerText verticalCenter style={{width: '100%', padding: '1rem'}}>
         {isTablet && isEnterpriseLoginV2Enabled && (
-          <LogoFullIcon
-            aria-hidden="true"
-            width={102}
-            height={33}
-            style={{marginBottom: '80px'}}
-            data-uie-name="ui-wire-logo"
-          />
+          <NovaLogo width={230} style={{marginBottom: '56px', maxWidth: '100%', height: 'auto'}} data-uie-name="ui-wire-logo" />
         )}
         <AppAlreadyOpen />
         <Columns>

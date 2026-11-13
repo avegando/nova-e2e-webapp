@@ -23,6 +23,7 @@ import {MappedAsset, mapProfileAssets, updateUserEntityAssets} from 'Repositorie
 import {User} from 'Repositories/entity/User';
 import {UserRecord} from 'Repositories/storage';
 import {getLogger, Logger} from 'Util/logger';
+import {getNovaDisplayOverride} from 'Util/novaDisplayName';
 
 import {isSelfAPIUser} from './userGuards';
 
@@ -160,7 +161,10 @@ export class UserMapper {
     }
 
     if (name) {
-      userEntity.name(name.trim());
+      const novaOverride = getNovaDisplayOverride(userEntity.id, userEntity.domain);
+      userEntity.novaBadge = novaOverride?.badge;
+      userEntity.novaStoredName(novaOverride?.name ? name.trim() : undefined);
+      userEntity.name(novaOverride?.name ?? name.trim());
     }
 
     if (service) {

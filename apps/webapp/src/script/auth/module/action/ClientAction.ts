@@ -105,11 +105,11 @@ export class ClientAction {
 
     if (Runtime.isDesktopApp()) {
       if (Runtime.isMacOS()) {
-        deviceModel = 'Wire macOS';
+        deviceModel = 'NovaE²E macOS';
       } else if (Runtime.isWindows()) {
-        deviceModel = 'Wire Windows';
+        deviceModel = 'NovaE²E Windows';
       } else {
-        deviceModel = 'Wire Linux';
+        deviceModel = 'NovaE²E Linux';
       }
     } else if (clientType === ClientType.TEMPORARY) {
       deviceModel = `${deviceModel} (Temporary)`;

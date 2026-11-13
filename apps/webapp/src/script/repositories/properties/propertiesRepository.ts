@@ -89,7 +89,7 @@ export class PropertiesRepository {
         },
         interface: {
           font_size: '',
-          theme: 'default',
+          theme: 'dark',
           view_folders: false,
           markdown_preview: true,
         },

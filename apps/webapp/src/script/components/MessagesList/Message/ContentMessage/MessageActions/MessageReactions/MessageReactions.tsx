@@ -23,7 +23,7 @@ import {EmojiPicker} from 'Components/EmojiPicker/EmojiPicker';
 import {isSpaceOrEnterKey} from 'Util/keyboardUtil';
 import {t} from 'Util/localizerUtil';
 
-import {EmojiChar} from './EmojiChar';
+import {NovaHeartIcon, NovaThumbIcon} from './NovaReactionIcons';
 import {reactionImgSize} from './EmojiChar.styles';
 
 import {MessageActionsId} from '../MessageActions';
@@ -151,7 +151,6 @@ const MessageReactions: FC<MessageReactionsProps> = ({
     }
   };
 
-  const emojiSize = 15;
   return (
     <>
       <button
@@ -168,7 +167,7 @@ const MessageReactions: FC<MessageReactionsProps> = ({
         onClick={handleMsgActionClick}
         onKeyDown={handleMsgActionKeyDown}
       >
-        <EmojiChar emoji={thumbsUpEmoji} size={emojiSize} />
+        <NovaThumbIcon />
       </button>
       <button
         css={{
@@ -184,7 +183,7 @@ const MessageReactions: FC<MessageReactionsProps> = ({
         onClick={handleMsgActionClick}
         onKeyDown={handleMsgActionKeyDown}
       >
-        <EmojiChar emoji={likeEmoji} size={emojiSize} />
+        <NovaHeartIcon />
       </button>
       <button
         css={{

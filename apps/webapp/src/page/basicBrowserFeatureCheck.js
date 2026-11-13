@@ -76,6 +76,6 @@ function isMinimumSupported() {
 }
 
 if (!isMinimumSupported()) {
-  console.error('The minimum browser features are not supported to run the Wire app!');
+  console.error('The minimum browser features are not supported to run the NovaE²E app!');
   location.href = '/unsupported/';
 }

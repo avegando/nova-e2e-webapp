@@ -32,6 +32,7 @@ import {Page} from './Page';
 import * as AuthSelector from '../module/selector/AuthSelector';
 import {QUERY_KEY, ROUTE} from '../route';
 import {getSearchParams, navigateTo} from '../util/urlUtil';
+import {NovaLogo} from '../component/NovaLogo';
 
 export const CustomBackend = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export const CustomBackend = () => {
   return (
     <Page withSideBar>
       <Container centerText verticalCenter css={containerCss}>
-        <LogoFullIcon aria-hidden="true" width={102} height={33} css={logoCss} data-uie-name="ui-wire-logo" />
+        <NovaLogo variant="compact" width={150} data-uie-name="ui-wire-logo" />
         <Text block center css={headerCss}>
           {t('redirectHeader')}
         </Text>

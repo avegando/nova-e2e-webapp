@@ -102,7 +102,7 @@
     "configure": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "copy-config ./.copyconfigrc.js && ts-node ./bin/generate_react_icons.ts",
+        "command": "copy-config ./.copyconfigrc.js && node ./bin/novae2e_apply_brand.js && ts-node ./bin/generate_react_icons.ts",
         "cwd": "{projectRoot}"
       }
     }

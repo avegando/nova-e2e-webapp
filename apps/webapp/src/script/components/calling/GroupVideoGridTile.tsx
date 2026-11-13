@@ -42,6 +42,7 @@ import {isEnterKey} from 'Util/keyboardUtil';
 import {t} from 'Util/localizerUtil';
 
 import {Video} from './Video';
+import {NovaHandIcon} from 'Components/NovaHandIcon';
 
 interface GroupVideoGridTileProps {
   isMaximized: boolean;
@@ -165,7 +166,7 @@ const GroupVideoGridTile = ({
         </span>
       )}
 
-      {!minimized && handRaisedAt != null && <span className="group-video-grid__element__label__hand_icon">✋</span>}
+      {!minimized && handRaisedAt != null && <span className="group-video-grid__element__label__hand_icon"><NovaHandIcon /></span>}
 
       {isMaximized && (
         <div className="group-video-grid__element__overlay">

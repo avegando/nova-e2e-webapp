@@ -27,6 +27,7 @@ import {t} from 'Util/localizerUtil';
 import {formatDuration} from 'Util/timeUtil';
 
 import {toolTipStyles} from './CallParticipantsListItemHandRaiseIcon.styles';
+import {NovaHandIcon} from 'Components/NovaHandIcon';
 
 interface CallParticipantsListItemHandRaiseIconProps {
   handRaisedAt: number;
@@ -64,7 +65,7 @@ export function CallParticipantsListItemHandRaiseIcon({handRaisedAt}: CallPartic
         }
         data-uie-name="hand-raised-at"
       >
-        ✋
+        <NovaHandIcon />
       </Tooltip>
     </>
   );

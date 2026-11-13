@@ -29,7 +29,6 @@ import {container} from 'tsyringe';
 import {UrlUtil} from '@wireapp/commons';
 import {Button, ButtonVariant, ContainerXS, ErrorMessage, Text} from '@wireapp/react-ui-kit';
 
-import {LogoFullIcon} from 'Components/Icon';
 import {useSingleInstance} from 'Hooks/useSingleInstance';
 import {Core} from 'src/script/service/coreSingleton';
 import {isDataDogEnabled} from 'Util/dataDog';
@@ -39,6 +38,7 @@ import {t} from 'Util/localizerUtil';
 import {Page} from './Page';
 
 import {Config} from '../../Config';
+import {NovaLogo} from '../component/NovaLogo';
 import '../../localization/Localizer';
 import {actionRoot} from '../module/action';
 import {bindActionCreators, RootState} from '../module/reducer';
@@ -94,13 +94,7 @@ const IndexComponent = ({defaultSSOCode, doInit}: Props & ConnectedProps & Dispa
   return (
     <Page>
       <ContainerXS centerText verticalCenter style={{width: '380px'}}>
-        <LogoFullIcon
-          aria-hidden="true"
-          width={102}
-          height={33}
-          style={{marginBottom: '80px'}}
-          data-uie-name="ui-wire-logo"
-        />
+        <NovaLogo width={230} style={{marginBottom: '56px', maxWidth: '100%', height: 'auto'}} data-uie-name="ui-wire-logo" />
         <Text
           block
           center
@@ -121,8 +115,8 @@ const IndexComponent = ({defaultSSOCode, doInit}: Props & ConnectedProps & Dispa
               id="index.disclaimer"
               values={{
                 link: (
-                  <a href="https://app.wire.com" rel="noopener noreferrer">
-                    wire.com
+                  <a href={Config.getConfig().URL.WEBSITE_BASE} rel="noopener noreferrer">
+                    {Config.getConfig().WEBSITE_LABEL}
                   </a>
                 ),
               }}

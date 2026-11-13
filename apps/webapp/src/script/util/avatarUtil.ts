@@ -37,30 +37,29 @@ function getHashCode(str: string) {
 const green = User.ACCENT_COLOR[ACCENT_ID.GREEN];
 const amber = User.ACCENT_COLOR[ACCENT_ID.AMBER];
 const blue = User.ACCENT_COLOR[ACCENT_ID.BLUE];
-const purple = User.ACCENT_COLOR[ACCENT_ID.PURPLE];
 const red = User.ACCENT_COLOR[ACCENT_ID.RED];
 const turquoise = User.ACCENT_COLOR[ACCENT_ID.TURQUOISE];
 
 const groupAvatarOptions = [
-  [green, purple, red],
+  [green, turquoise, red],
   [blue, green, amber],
-  [blue, red, purple],
-  [amber, green, purple],
-  [green, blue, purple],
+  [blue, red, turquoise],
+  [amber, green, turquoise],
+  [green, blue, turquoise],
   [blue, amber, green],
-  [red, turquoise, purple],
+  [red, turquoise, blue],
   [green, red, blue],
-  [amber, blue, purple],
-  [purple, turquoise, green],
-  [green, purple, red],
+  [amber, blue, turquoise],
+  [blue, turquoise, green],
+  [green, turquoise, red],
   [green, blue, red],
-  [purple, blue, green],
+  [turquoise, blue, green],
   [green, blue, amber],
-  [green, amber, purple],
+  [green, amber, turquoise],
 ];
 
 // The color options for the channel avatar.
-const channelAvatarColorOptions = ['blue', 'purple', 'red', 'green', 'amber', 'turquoise', 'black'];
+const channelAvatarColorOptions = ['blue', 'red', 'green', 'amber', 'turquoise', 'black'];
 
 const borderIdentifier = 'border';
 const backgroundIdentifier = 'background';

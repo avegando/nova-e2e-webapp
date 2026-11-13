@@ -25,6 +25,7 @@ import * as Icon from 'Components/Icon';
 import {ModalComponent} from 'Components/Modals/ModalComponent';
 import {User} from 'Repositories/entity/User';
 import {t} from 'Util/localizerUtil';
+import {buildInviteLink} from 'Util/novaInvite';
 import {renderElement} from 'Util/renderElement';
 
 import {Config} from '../../../Config';
@@ -39,9 +40,10 @@ const {BRAND_NAME: brandName} = Config.getConfig();
 const InviteModal = ({selfUser, onClose}: InviteModalProps) => {
   const [isInviteMessageSelected, setIsInviteMessageSelected] = useState<boolean>(false);
   const userName = selfUser.username();
+  const link = buildInviteLink(userName);
   const inviteMessage = userName
-    ? t('inviteMessage', {brandName: brandName, username: `@${userName}`})
-    : t('inviteMessageNoEmail', {brandName});
+    ? t('inviteMessage', {brandName: brandName, link, username: `@${userName}`})
+    : t('inviteMessageNoEmail', {brandName, link});
 
   const metaKey = Runtime.isMacOS() ? t('inviteMetaKeyMac') : t('inviteMetaKeyPc');
   const inviteHint = isInviteMessageSelected

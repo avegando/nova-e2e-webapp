@@ -1,3 +1,80 @@
+# Web messenger: source code (fork of the Wire web app)
+
+This repository contains the source code of the web app behind the Nova E2E messenger service
+operated by Avegando AI Labs LLC ("Avegando"). It is a modified version of the
+[Wire web app](https://github.com/wireapp/wire-webapp) by Wire Swiss GmbH.
+
+| | |
+| --- | --- |
+| Upstream project | `wireapp/wire-webapp` |
+| Upstream base | tag `2026-06-02-production.0`, commit `44be756af1dd3e4ac1051f1518d38524ba5dd772` |
+| Modified by | Avegando AI Labs LLC |
+| Date of the modifications | 2026-11-13 (state of the published code) |
+| License | GNU General Public License, version 3 (see `LICENSE`) |
+
+The complete upstream history is kept in this repository. The modifications are published on
+top of the upstream tag.
+
+## License
+
+The Wire web app is licensed under the GNU General Public License, version 3. This modified
+version, including all changes made by Avegando, is licensed under the same license. There is
+no warranty; see sections 15 and 16 of the license.
+
+The license covers the program code. Names and logos are a separate matter. The product name and the public addresses of the hosted service appear in the code as they are in the running service; the logo and icon files are not part of this repository, plain grey placeholder images take their place. Neither the name nor the logos are licensed: if you distribute or host this software yourself, use your own name, logo and addresses. See `TRADEMARKS.md`.
+
+This project is not affiliated with, endorsed by or supported by Wire Swiss GmbH. The notice
+by Wire Swiss GmbH on the Wire trademark and on apps that connect to Wire's servers is kept
+below. The hosted service runs this app against its own backend. If you build the app yourself,
+set the backend addresses (`BACKEND_REST`, `BACKEND_WS`) to your own backend.
+
+## What was changed (relative to the upstream tag)
+
+- Brand overlay: a build step copies deployment-specific images over the default resources and
+  sets name and address defaults (`apps/webapp/bin/novae2e_apply_brand.js`, `apps/webapp/brand`).
+  The product name in the translation texts was replaced.
+- Look: dark theme as the default, black and silver surfaces with one cyan accent, purple removed
+  from the profile colours, emoji replaced by plain icons and text
+  (`apps/webapp/src/style/foundation/novae2e.less`, colour values, two patches for
+  `@wireapp/react-ui-kit` in `.yarn/patches`).
+- Sign-in and registration pages: new layout and styles, an animated backdrop drawn from text
+  characters on a canvas, own logo component, personal accounts first, no price wording.
+- Phones and tablets: mobile browsers are let into the app, home-screen meta tags and a web
+  manifest, layout that follows the visible height and the on-screen keyboard, a menu that
+  opens and closes by tap.
+- Server: static files are sent as Brotli or gzip copies written at build time; icons and the
+  manifest are served at the fixed root paths phones ask for.
+- Build: a low-memory bundle configuration and a wrapper that fails when the bundle has errors.
+- Files received in a chat open inside the app on phones; a leftover single-instance marker no
+  longer signs the user out.
+- Voice messages from the message bar, delivery ticks on own messages, reaction and call bars for
+  phones, an invitation link, and a display name and badge for single accounts set at deploy time
+  (`NOVA_DISPLAY_NAMES`).
+- About page: a license notice with a configurable link to this source code (`URL_SOURCE_CODE`).
+
+## Building
+
+Requirements: Node.js as given in `.nvmrc`, Yarn (via Corepack), and Docker for the container image.
+
+```
+yarn install                     # also runs "nx run webapp:configure": fetches the default configuration,
+                                 # applies apps/webapp/brand and generates the icon components
+yarn build:prod                  # standard production build of the libraries, the web app and the server
+```
+
+On a host with little memory run `yarn build:libs` and then
+`apps/webapp/bin/novae2e_build_lowmem.sh` instead of `yarn build:prod`. The script runs the same
+steps one by one with a smaller bundle configuration (`apps/webapp/webpack.config.lowmem.js`),
+writes the compressed copies of the static files and, with `BUILD_IMAGE=1`, builds the container
+image from `apps/server/Dockerfile`.
+
+Backend addresses, the name shown in the app and all other settings are read from environment
+variables at run time; `libraries/config/src/env.ts` lists them.
+
+---
+
+<!-- Below: the README of the upstream project, unchanged. -->
+
 # Wire™
 
 [![We are hiring](https://github.com/wireapp/wire/blob/master/assets/header-small.png?raw=true)](https://www.linkedin.com/company/wire-secure-communication/jobs/)

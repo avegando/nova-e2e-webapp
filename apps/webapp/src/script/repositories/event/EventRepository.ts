@@ -223,6 +223,13 @@ export class EventRepository {
 
       connectionInProgress = true;
       actualDisconnect();
+      // NovaE2E: an attempt that never answers (server down, connection refused) must not block later attempts for ever
+      const attemptTimeout = window.setTimeout(() => {
+        if (connectionInProgress) {
+          this.logger.warn('Connection attempt did not finish in time, allowing a new attempt');
+          connectionInProgress = false;
+        }
+      }, 25000);
       try {
         actualDisconnect = await account.listen({
           useLegacy,
@@ -238,9 +245,60 @@ export class EventRepository {
       } catch {
         actualDisconnect = () => {};
       } finally {
+        window.clearTimeout(attemptTimeout);
         connectionInProgress = false;
       }
     };
+
+    // NovaE2E: while the connection is closed but the device is online (server outage, standby, app switch), try again
+    // with growing pauses instead of waiting for the next heartbeat; the bar goes away as soon as a connection stands.
+    const retryPauses = [2000, 4000, 8000, 15000, 30000];
+    let retryStep = 0;
+    let retryTimer = 0;
+    const scheduleRetry = () => {
+      window.clearTimeout(retryTimer);
+      retryTimer = window.setTimeout(async () => {
+        const isClosed = this.notificationHandlingState() === NOTIFICATION_HANDLING_STATE.CLOSED;
+        if (!isClosed && currentConnectionState === ConnectionState.LIVE) {
+          retryStep = 0;
+          return;
+        }
+        if (navigator.onLine && !connectionInProgress && currentConnectionState !== ConnectionState.CONNECTING) {
+          this.logger.info('Connection closed while online, trying again...');
+          await connect();
+        }
+        retryStep = Math.min(retryStep + 1, retryPauses.length - 1);
+        scheduleRetry();
+      }, retryPauses[retryStep]);
+    };
+    const retryWatcher = window.setInterval(() => {
+      const isClosed = this.notificationHandlingState() === NOTIFICATION_HANDLING_STATE.CLOSED;
+      if (isClosed && !retryTimer) {
+        retryStep = 0;
+        scheduleRetry();
+      } else if (!isClosed && currentConnectionState === ConnectionState.LIVE) {
+        window.clearTimeout(retryTimer);
+        retryTimer = 0;
+        retryStep = 0;
+      }
+    }, 1000);
+    const handlePageShow = () => {
+      if (navigator.onLine) {
+        retryStep = 0;
+        void connectIfClosed();
+      }
+    };
+    const connectIfClosed = async () => {
+      if (this.notificationHandlingState() === NOTIFICATION_HANDLING_STATE.CLOSED && !connectionInProgress) {
+        await connect();
+      }
+    };
+    window.addEventListener('pageshow', handlePageShow);
+    cleanupHandlers.push(() => {
+      window.clearInterval(retryWatcher);
+      window.clearTimeout(retryTimer);
+      window.removeEventListener('pageshow', handlePageShow);
+    });
 
     const handleOnline = () => {
       if (!navigator.onLine) {

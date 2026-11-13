@@ -35,6 +35,7 @@ import {actionRoot} from '../module/action';
 import {ThunkDispatch} from '../module/reducer';
 import {QUERY_KEY} from '../route';
 import {getEnterpriseLoginV2FF} from '../util/helpers';
+import {NovaLogo} from '../component/NovaLogo';
 
 const REDIRECT_DELAY = 5000;
 const CustomEnvironmentRedirectComponent = ({doNavigate, doSendNavigationEvent}: DispatchProps) => {
@@ -81,7 +82,7 @@ const CustomEnvironmentRedirectComponent = ({doNavigate, doSendNavigationEvent}:
               width: 120,
             }}
           >
-            <LogoIcon aria-hidden="true" fill={COLOR.WHITE} color={COLOR.WHITE} width={47} height={38} />
+            <NovaLogo variant="icon" width={47} />
             <svg
               aria-hidden="true"
               style={{position: 'absolute'}}

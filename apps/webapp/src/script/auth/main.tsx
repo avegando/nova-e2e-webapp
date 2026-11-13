@@ -45,6 +45,11 @@ import {setAppLocale} from '../localization/Localizer';
 import {APIClient} from '../service/apiClientSingleton';
 import {Core} from '../service/coreSingleton';
 import {createAPIClient} from '../service/createApiClient';
+import {captureInviteFromUrl} from 'src/script/util/novaInvite';
+import {initNovaViewport} from 'src/script/util/novaViewport';
+
+initNovaViewport();
+captureInviteFromUrl();
 
 exposeWrapperGlobals();
 

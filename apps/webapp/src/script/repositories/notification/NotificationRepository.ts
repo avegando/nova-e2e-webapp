@@ -98,7 +98,7 @@ export class NotificationRepository {
   static get CONFIG() {
     return {
       BODY_LENGTH: 80,
-      ICON_URL: '/image/logo/notification.png',
+      ICON_URL: '/image/meta/novae2e-icon-192-v2.png',
       TIMEOUT: TIME_IN_MILLIS.SECOND * 5,
       TITLE_LENGTH: 17,
       TITLE_MAX_LENGTH: 38,

@@ -75,14 +75,6 @@ const CallingContainer = ({
 
   const isMuted = muteState !== MuteState.NOT_MUTED;
 
-  useEffect(() => {
-    if (currentCallState === undefined) {
-      fireAndForgetInvoker.fireAndForget(async (): Promise<void> => {
-        await callingRepository.setViewModeMinimized();
-      });
-    }
-  }, [callingRepository, currentCallState, fireAndForgetInvoker]);
-
   const videoGrid = useVideoGrid(joinedCall!);
 
   const changePage = (newPage: number, call: Call) => callingRepository.changeCallPage(call, newPage);

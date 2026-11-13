@@ -35,6 +35,7 @@ import {t} from 'Util/localizerUtil';
 
 import {GroupVideoGridTile} from './GroupVideoGridTile';
 import {Video} from './Video';
+import {NovaHandIcon} from 'Components/NovaHandIcon';
 
 const PARTICIPANTS_LIMITS = {
   TABLET: {SHORT: 2, MEDIUM: 4, TALL: 8},
@@ -296,7 +297,7 @@ const GroupVideoGrid = ({
           )}
           {selfHandRaisedAt != null && !minimized && (
             <span className="group-video-grid__element__label__hand_icon small" data-uie-name="status-call-audio-muted">
-              ✋
+              <NovaHandIcon />
             </span>
           )}
         </GroupVideoThumbnailWrapper>
@@ -322,7 +323,7 @@ const GroupVideoGrid = ({
                 className="group-video-grid__element__label__hand_icon small"
                 data-uie-name="status-call-audio-muted"
               >
-                ✋
+                <NovaHandIcon />
               </span>
             )}
             <Avatar

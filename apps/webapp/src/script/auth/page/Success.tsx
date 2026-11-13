@@ -19,9 +19,8 @@
 
 import {useEffect} from 'react';
 
-import {SuccessShield} from '@wireapp/react-ui-kit/lib/Images/SuccessShield';
-
-import {ActionLinkButton, FlexBox, Text} from '@wireapp/react-ui-kit';
+import {Runtime} from '@wireapp/commons';
+import {Button, FlexBox, Text} from '@wireapp/react-ui-kit';
 
 import {Config} from 'src/script/Config';
 import {replaceBrowserLocation} from 'src/script/navigation/browserLocation';
@@ -31,6 +30,7 @@ import {Page} from './Page';
 import {styles} from './Success.styles.';
 
 import {AccountRegistrationLayout} from '../component/AccountRegistrationLayout';
+import {NovaLogo} from '../component/NovaLogo';
 import {EXTERNAL_ROUTE} from '../externalRoute';
 import {PageView, resetTelemetrySession, trackTelemetryPageView} from '../util/trackingUtil';
 import {pathWithParams} from '../util/urlUtil';
@@ -49,7 +49,7 @@ export const Success = () => {
     <Page>
       <AccountRegistrationLayout>
         <FlexBox css={styles.container}>
-          <SuccessShield />
+          <NovaLogo variant="icon" width={112} alt="NovaE2E" />
           <Text block center css={styles.heading}>
             {t('success.header')}
           </Text>
@@ -57,21 +57,19 @@ export const Success = () => {
             {t('success.subheader')}
           </Text>
 
-          <ActionLinkButton
-            data-uie-name="do-download-wire"
-            onClick={() => secureOpen(pathWithParams(Config.getConfig().GET_WIRE_URL))}
-            css={styles.link}
-          >
-            {t('success.downloadButton')}
-          </ActionLinkButton>
-
-          <ActionLinkButton
+          <Button
+            type="submit"
+            block
             data-uie-name="do-open-wire-web"
             onClick={() => secureOpen(pathWithParams(EXTERNAL_ROUTE.WEBAPP))}
-            css={styles.link}
+            css={styles.button}
           >
             {t('success.openWebAppText')}
-          </ActionLinkButton>
+          </Button>
+
+          <Text block center css={styles.tip} data-uie-name="status-home-screen-tip">
+            {Runtime.isAndroid() ? t('success.homeScreenTipAndroid') : t('success.homeScreenTip')}
+          </Text>
         </FlexBox>
       </AccountRegistrationLayout>
     </Page>

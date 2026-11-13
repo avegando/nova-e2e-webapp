@@ -359,6 +359,15 @@ export type Env = {
 
   URL_WHATS_NEW: string;
 
+  /** NovaE2E: public address of the source code of this build (GPL-3.0). Empty: the licence notice shows no link. */
+  URL_SOURCE_CODE: string;
+
+  /**
+   * NovaE2E: display name and badge for single accounts, set at deploy time. JSON object, key "<user id>@<domain>":
+   * {"<user id>@<domain>": {"name": "Shown Name", "badge": "admin"}}. The name stored on the server stays untouched.
+   */
+  NOVA_DISPLAY_NAMES?: string;
+
   /** Content Security Policy
    * Multiple entries separated by comma, e.g. "https://*.wire.com, https://*.zinfra.io, 'self'"
    * Adds additional CSP connect-src entries. The default already includes BACKEND_REST & BACKEND_WS.

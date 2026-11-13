@@ -87,10 +87,10 @@ const getMetricRows = (renderMetrics: RenderMetrics) => {
 const getCapabilityRows = (capabilityInfo: CapabilityInfo | null | undefined) => {
   return Maybe.of(capabilityInfo)
     .map(info => [
-      {label: 'WebGL2', value: info.webgl2 ? '✔' : '✖'},
-      {label: 'Worker', value: info.worker ? '✔' : '✖'},
-      {label: 'OffscreenCanvas', value: info.offscreenCanvas ? '✔' : '✖'},
-      {label: 'VideoFrameCallback', value: info.requestVideoFrameCallback ? '✔' : '✖'},
+      {label: 'WebGL2', value: info.webgl2 ? 'yes' : 'no'},
+      {label: 'Worker', value: info.worker ? 'yes' : 'no'},
+      {label: 'OffscreenCanvas', value: info.offscreenCanvas ? 'yes' : 'no'},
+      {label: 'VideoFrameCallback', value: info.requestVideoFrameCallback ? 'yes' : 'no'},
     ])
     .unwrapOr([]);
 };

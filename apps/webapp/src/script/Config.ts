@@ -30,10 +30,13 @@ export const ACCENT_ID = {
   AMBER: 5,
   BLUE: 1,
   GREEN: 2,
-  PURPLE: 7,
   RED: 4,
   TURQUOISE: 6,
 };
+
+/** Profile colours that are no longer offered (purple) are shown as blue. */
+export const normalizeAccentId = (id?: number): number =>
+  typeof id === 'number' && (Object.values(ACCENT_ID) as number[]).includes(id) ? id : ACCENT_ID.BLUE;
 
 const config = {
   ...env,
@@ -100,9 +103,9 @@ const config = {
   AVS_VERSION: packageJson.dependencies['@wireapp/avs'],
 
   COUNTLY_SERVER_URL: 'https://wire.count.ly/',
-  GET_WIRE_URL: 'https://wire.com/app-download',
-  PRIVACY_POLICY_URL_DE: 'https://wire.com/de/datenschutzerklaerung',
-  TERMS_OF_USE_URL_DE: 'https://wire.com/de/legal/teams',
+  GET_WIRE_URL: 'https://webapp.e2e.novaos.cloud',
+  PRIVACY_POLICY_URL_DE: 'https://novaos.cloud/privacy',
+  TERMS_OF_USE_URL_DE: 'https://novaos.cloud/terms',
 } as const;
 
 export type Configuration = typeof config;

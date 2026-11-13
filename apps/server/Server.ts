@@ -192,14 +192,99 @@ class Server {
 
     const staticRoutes = ['audio', 'ext', 'font', 'image', 'min', 'proto', 'style', 'worker', 'assets'];
 
+    // NovaE2E: icons and the manifest are public files; the system's icon loader on phones must be able to read them.
+    this.app.use('/image/meta', (_req, res, next) => {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      next();
+    });
+
+    // NovaE2E: send the copies written at build time (bin/novae2e_precompress.js) instead of the raw file.
+    this.app.use(this.createPrecompressedMiddleware(['libs', ...staticRoutes]));
+
     staticRoutes.forEach(route => {
       this.app.use(`/${route}`, express.static(path.join(__dirname, `static/${route}`)));
     });
 
-    this.app.get('/favicon.ico', (_req, res) => res.sendFile(path.join(__dirname, 'static/image/favicon.ico')));
+    this.app.get('/favicon.ico', (_req, res) => res.sendFile(path.join(__dirname, 'static/image/favicon-v2.ico')));
+
+    // NovaE2E: phones ask for the home-screen icon and the manifest at fixed root paths, whatever the page links to.
+    const metaDir = path.join(__dirname, 'static/image/meta');
+    const rootFiles: Record<string, string> = {
+      '/apple-touch-icon.png': 'apple-touch-icon-180-v2.png',
+      '/apple-touch-icon-precomposed.png': 'apple-touch-icon-180-v2.png',
+      '/apple-touch-icon-180x180.png': 'apple-touch-icon-180-v2.png',
+      '/apple-touch-icon-180x180-precomposed.png': 'apple-touch-icon-180-v2.png',
+      '/apple-touch-icon-167x167.png': 'apple-touch-icon-167-v2.png',
+      '/apple-touch-icon-152x152.png': 'apple-touch-icon-152-v2.png',
+      '/apple-touch-icon-152x152-precomposed.png': 'apple-touch-icon-152-v2.png',
+      '/apple-touch-icon-120x120.png': 'apple-touch-icon-120-v2.png',
+      '/apple-touch-icon-120x120-precomposed.png': 'apple-touch-icon-120-v2.png',
+      '/manifest.json': 'site.webmanifest',
+      '/site.webmanifest': 'site.webmanifest',
+    };
+    Object.entries(rootFiles).forEach(([route, file]) => {
+      this.app.get(route, (_req, res) => {
+        res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+        res.sendFile(path.join(metaDir, file));
+      });
+    });
     if (!this.config.DEVELOPMENT) {
       this.app.get('/sw.js', (_req, res) => res.sendFile(path.join(__dirname, 'static/sw.js')));
     }
+  }
+
+  /**
+   * NovaE2E: serves `<file>.br` or `<file>.gz` (written at build time) when the client accepts it.
+   * Only the URL is rewritten; `express.static` still sends the file, so ETag, Last-Modified, ranges and
+   * the cache headers set earlier keep working. The content type is the one of the original file.
+   */
+  private createPrecompressedMiddleware(routes: string[]): express.RequestHandler {
+    const available = new Set<string>();
+    const collect = (dir: string, urlPrefix: string) => {
+      if (!fs.existsSync(dir)) {
+        return;
+      }
+      for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
+        if (entry.isDirectory()) {
+          collect(path.join(dir, entry.name), `${urlPrefix}/${entry.name}`);
+        } else if (entry.name.endsWith('.br') || entry.name.endsWith('.gz')) {
+          available.add(`${urlPrefix}/${entry.name}`);
+        }
+      }
+    };
+    routes.forEach(route => {
+      const dir = route === 'libs' ? path.join(__dirname, 'libs') : path.join(__dirname, `static/${route}`);
+      collect(dir, `/${route}`);
+    });
+
+    return (req, res, next) => {
+      if ((req.method !== 'GET' && req.method !== 'HEAD') || available.size === 0) {
+        return next();
+      }
+      const queryStart = req.url.indexOf('?');
+      const rawPath = queryStart === -1 ? req.url : req.url.slice(0, queryStart);
+      const query = queryStart === -1 ? '' : req.url.slice(queryStart);
+      let pathname: string;
+      try {
+        pathname = path.posix.normalize(decodeURIComponent(rawPath));
+      } catch {
+        return next();
+      }
+      if (!available.has(`${pathname}.br`) && !available.has(`${pathname}.gz`)) {
+        return next();
+      }
+      // The answer depends on the Accept-Encoding header, whichever copy is sent.
+      res.vary('Accept-Encoding');
+      const accepted = req.acceptsEncodings(['br', 'gzip', 'identity']);
+      const extension = accepted === 'br' ? '.br' : accepted === 'gzip' ? '.gz' : '';
+      if (!extension || !available.has(`${pathname}${extension}`)) {
+        return next();
+      }
+      res.type(path.extname(pathname));
+      res.setHeader('Content-Encoding', accepted as string);
+      req.url = `${encodeURI(pathname)}${extension}${query}`;
+      return next();
+    };
   }
 
   public initLatestBrowserRequired() {

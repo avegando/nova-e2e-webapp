@@ -30,13 +30,13 @@ export const searchFieldStyles: CSSObject = {
   background: 'var(--Background-Base-Primary, #FFF)',
   boxSizing: 'border-box',
   '&:focus-within': {
-    border: '1px solid var(--Border-Accent-Color-Primary, #0667C8)',
+    border: '1px solid var(--Border-Accent-Color-Primary, #0e7490)',
   },
   'body.theme-dark &': {
     border: '1px solid var(--Border-Base-Primary, #34373D)',
     background: 'var(--Background-Base-Primary, #17181A)',
     '&:focus-within': {
-      border: '1px solid var(--Border-Accent-Color-Primary, #54A6FF)',
+      border: '1px solid var(--Border-Accent-Color-Primary, #22d3ee)',
     },
   },
 };

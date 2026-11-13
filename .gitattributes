@@ -18,3 +18,6 @@
 *.onnx binary
 *.pb binary
 *.pt binary
+
+# NovaE2E: icon files are binary
+*.ico binary

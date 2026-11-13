@@ -40,6 +40,15 @@ export const EmptyConversationList = ({currentTab, onChangeTab, searchValue = ''
     return (
       <div css={wrapper} className="empty-conversations-list">
         <div>
+          {!searchValue && (
+            <img
+              src="/image/logo/novae2e-schild-frei-128.png"
+              width={56}
+              height={56}
+              alt=""
+              style={{display: 'block', margin: '0 auto 12px'}}
+            />
+          )}
           <p css={paragraph}>{searchValue ? t('searchConversationsNoResult') : t('conversationAllWelcomeMessage')}</p>
 
           <ConnectWithNewUsersButton onClick={() => onChangeTab(SidebarTabs.CONNECT)} />

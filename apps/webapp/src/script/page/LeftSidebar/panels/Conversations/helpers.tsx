@@ -67,8 +67,16 @@ export function getTabConversations({
   const conversationSearchFilter = (conversation: Conversation) => {
     const filterWord = replaceAccents(conversationsFilter.toLowerCase());
     const conversationDisplayName = replaceAccents(conversation.display_name().toLowerCase());
+    // accounts with a display name from the configuration are still found by their stored name and handle
+    const mappedUser = conversation.is1to1() ? conversation.firstUserEntity() : undefined;
+    const storedName = mappedUser?.novaStoredName();
 
-    return conversationDisplayName.includes(filterWord);
+    return (
+      conversationDisplayName.includes(filterWord) ||
+      (!!storedName &&
+        (replaceAccents(storedName.toLowerCase()).includes(filterWord) ||
+          (mappedUser?.username() ?? '').toLowerCase().includes(filterWord.replace(/^@/, ''))))
+    );
   };
 
   const conversationArchivedFilter = (conversation: Conversation) => !archivedConversations.includes(conversation);
@@ -85,7 +93,10 @@ export function getTabConversations({
     const filteredGroupConversations = groupConversations.filter(group => {
       return group.participating_user_ets().some(user => {
         const conversationDisplayName = replaceAccents(user.name().toLowerCase());
-        return conversationDisplayName.includes(filterWord);
+        return (
+          conversationDisplayName.includes(filterWord) ||
+          (!!user.novaStoredName() && replaceAccents(user.novaStoredName()!.toLowerCase()).includes(filterWord))
+        );
       });
     });
 

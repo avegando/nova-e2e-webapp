@@ -33,21 +33,7 @@
 
 import Cookies from 'js-cookie';
 
-import {QUERY_KEY} from '../auth/route';
-
-const isOauth = (): boolean => location?.hash?.includes(QUERY_KEY.SCOPE) ?? false;
-
 const cookieName = 'cookie_supported_test_wire_cookie_name';
-
-const isMobileBrowser = (): boolean => {
-  const isTouchScreen = window.matchMedia('(any-pointer:coarse)').matches;
-  const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
-  return (
-    isTouchScreen &&
-    isSmallScreen &&
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-  );
-};
 
 const supportsCookies = (): boolean => {
   switch (navigator.cookieEnabled) {
@@ -107,28 +93,21 @@ const supportsIndexDB = (): Promise<boolean> =>
 
 const checkBrowser = (): void => {
   if (!supportsCookies()) {
-    redirectUnsupportedBrowser("This browser doesn't support cookies to run the Wire app!");
-    return;
-  }
-  // Skip the mobile browser check for OAuth
-  if (isOauth()) {
+    redirectUnsupportedBrowser("This browser doesn't support cookies to run the NovaE²E app!");
     return;
   }
 
-  if (isMobileBrowser() && !window.location.pathname.includes('/auth/')) {
-    redirectUnsupportedBrowser("This browser doesn't support the Wire app on mobile devices!");
-    return;
-  }
+  // NovaE2E: phone and tablet browsers are welcome, there is no redirect to a native app.
 
   if (!('RTCPeerConnection' in window)) {
-    redirectUnsupportedBrowser("This browser doesn't support RTC to run the Wire app!");
+    redirectUnsupportedBrowser("This browser doesn't support RTC to run the NovaE²E app!");
     return;
   }
   void supportsIndexDB()
     .catch(() => false)
     .then(res => {
       if (!res) {
-        redirectUnsupportedBrowser("This browser doesn't support IndexDB to run the Wire app!");
+        redirectUnsupportedBrowser("This browser doesn't support IndexDB to run the NovaE²E app!");
       }
     });
 };

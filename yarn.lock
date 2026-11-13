@@ -9320,6 +9320,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wireapp/react-ui-kit@patch:@wireapp/react-ui-kit@npm%3A9.76.0#~/.yarn/patches/@wireapp-react-ui-kit-npm-9.76.0-9214acdf94.patch::version=9.76.0&hash=280e7b":
+  version: 9.76.0
+  resolution: "@wireapp/react-ui-kit@patch:@wireapp/react-ui-kit@npm%3A9.76.0#~/.yarn/patches/@wireapp-react-ui-kit-npm-9.76.0-9214acdf94.patch::version=9.76.0&hash=280e7b"
+  dependencies:
+    "@radix-ui/react-accordion": "npm:1.2.11"
+    "@radix-ui/react-dropdown-menu": "npm:2.1.14"
+    "@types/color": "npm:3.0.6"
+    color: "npm:4.2.3"
+    emotion-normalize: "npm:11.0.1"
+    react-select: "npm:5.10.2"
+    react-transition-group: "npm:4.4.5"
+  peerDependencies:
+    "@emotion/react": ^11
+    "@types/react": ^18
+    react: ^18
+    react-dom: ^18
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10/86e6d82f937b6172a0b1e4627574e5208957889b86d2face3c1e7da49dbb492490e0f3b77beca601ffe076ae587c80f95ce9cea5b29ffa3207fd15048be7a624
+  languageName: node
+  linkType: hard
+
+"@wireapp/react-ui-kit@patch:@wireapp/react-ui-kit@patch%3A@wireapp/react-ui-kit@npm%253A9.76.0%23~/.yarn/patches/@wireapp-react-ui-kit-npm-9.76.0-9214acdf94.patch%3A%3Aversion=9.76.0&hash=280e7b#~/.yarn/patches/@wireapp-react-ui-kit-patch-dc45eb4725.patch":
+  version: 9.76.0
+  resolution: "@wireapp/react-ui-kit@patch:@wireapp/react-ui-kit@patch%3A@wireapp/react-ui-kit@npm%253A9.76.0%23~/.yarn/patches/@wireapp-react-ui-kit-npm-9.76.0-9214acdf94.patch%3A%3Aversion=9.76.0&hash=280e7b#~/.yarn/patches/@wireapp-react-ui-kit-patch-dc45eb4725.patch::version=9.76.0&hash=04ff0a"
+  dependencies:
+    "@radix-ui/react-accordion": "npm:1.2.11"
+    "@radix-ui/react-dropdown-menu": "npm:2.1.14"
+    "@types/color": "npm:3.0.6"
+    color: "npm:4.2.3"
+    emotion-normalize: "npm:11.0.1"
+    react-select: "npm:5.10.2"
+    react-transition-group: "npm:4.4.5"
+  peerDependencies:
+    "@emotion/react": ^11
+    "@types/react": ^18
+    react: ^18
+    react-dom: ^18
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10/45ca8fea7bec70088678658e3d1265d1e5b251fa5061b398cfedc741a364ec191962a2f7d17473d7723e9529d3e45c6f9f5c7ede0502276ff5999600cd14b13e
+  languageName: node
+  linkType: hard
+
 "@wireapp/server@workspace:apps/server":
   version: 0.0.0-use.local
   resolution: "@wireapp/server@workspace:apps/server"
@@ -9462,7 +9508,7 @@ __metadata:
     "@wireapp/core": "workspace:^"
     "@wireapp/kalium-backup": "npm:0.0.4"
     "@wireapp/promise-queue": "npm:2.4.13"
-    "@wireapp/react-ui-kit": "npm:9.76.0"
+    "@wireapp/react-ui-kit": "patch:@wireapp/react-ui-kit@patch%3A@wireapp/react-ui-kit@npm%253A9.76.0%23~/.yarn/patches/@wireapp-react-ui-kit-npm-9.76.0-9214acdf94.patch%3A%3Aversion=9.76.0&hash=280e7b#~/.yarn/patches/@wireapp-react-ui-kit-patch-dc45eb4725.patch"
     "@wireapp/store-engine": "npm:5.1.19"
     "@wireapp/store-engine-dexie": "npm:2.1.24"
     "@wireapp/telemetry": "npm:0.3.10"

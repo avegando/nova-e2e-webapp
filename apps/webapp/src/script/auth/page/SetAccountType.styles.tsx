@@ -42,6 +42,7 @@ export const styles: {
   featureList: CSSObject;
   optionButton: CSSObject;
   horizontalLine: CSSObject;
+  salesHint: CSSObject;
 } = {
   container: {
     width: '100%',
@@ -103,9 +104,9 @@ export const styles: {
     border: '1px solid',
     borderColor: isHighlighted === true ? 'var(--accent-color)' : 'var(--text-input-border)',
     flex: 1,
-    height: 360,
+    minHeight: 360,
     position: 'relative',
-    background: COLOR_V2.WHITE,
+    background: '#171a1f',
     [mediaQueryDesktop]: {
       margin: '16px 0',
     },
@@ -138,5 +139,12 @@ export const styles: {
     height: '0.5px',
     background: COLOR_V2.GRAY_40,
     margin: '12px 0px',
+  },
+  salesHint: {
+    marginTop: '20px',
+    textAlign: 'center',
+    fontSize: '14px',
+    lineHeight: '20px',
+    color: '#c3ccd4',
   },
 };

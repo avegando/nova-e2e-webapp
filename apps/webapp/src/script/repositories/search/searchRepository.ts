@@ -98,6 +98,11 @@ export class SearchRepository {
             : userEntity[property];
         });
 
+      const storedName = userEntity.novaStoredName();
+      if (storedName) {
+        values.push(storedName);
+      }
+
       const uniqueValues = Array.from(new Set(values));
       const matchWeight = uniqueValues.reduce((weight, value, index) => {
         const propertyWeight = 10 * index + 1;

@@ -34,6 +34,7 @@ import {
   Tooltip,
 } from '@wireapp/react-ui-kit';
 
+import {NovaAdminBadge} from 'Components/NovaAdminBadge';
 import {useUserIdentity} from 'Hooks/useDeviceIdentities';
 import {ClientEntity} from 'Repositories/client';
 import {ConversationVerificationState} from 'Repositories/conversation/ConversationVerificationState';
@@ -121,7 +122,12 @@ export const UserVerificationBadges = ({
     status = MLSStatuses.VALID;
   }
 
-  return <VerificationBadges context="user" isProteusVerified={isProteusVerified} MLSStatus={status} />;
+  return (
+    <>
+      <NovaAdminBadge user={user} />
+      <VerificationBadges context="user" isProteusVerified={isProteusVerified} MLSStatus={status} />
+    </>
+  );
 };
 
 export const DeviceVerificationBadges = ({

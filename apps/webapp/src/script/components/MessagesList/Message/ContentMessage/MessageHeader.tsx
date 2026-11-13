@@ -19,6 +19,7 @@
 
 import {Tooltip} from '@wireapp/react-ui-kit';
 
+import {NovaAdminBadge} from 'Components/NovaAdminBadge';
 import {AVATAR_SIZE, Avatar} from 'Components/Avatar';
 import {UserBlockedBadge} from 'Components/Badge';
 import * as Icon from 'Components/Icon';
@@ -47,6 +48,8 @@ type MessageHeaderParams = {
 function BadgeSection({sender}: {sender: User}) {
   return (
     <>
+      <NovaAdminBadge user={sender} />
+
       {sender.isService && (
         <span className="message-header-icon-service" css={headerIconBadge}>
           <Icon.ServiceIcon css={headerIconSizeS} />

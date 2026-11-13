@@ -19,39 +19,39 @@
 
 import {ReactNode} from 'react';
 
-import {WavesPattern} from '@wireapp/react-ui-kit/lib/Images/WavesPattern';
-
-import {Bold, COLOR_V2, FlexBox, Link, Logo, Text} from '@wireapp/react-ui-kit';
+import {FlexBox, Link} from '@wireapp/react-ui-kit';
 
 import {t} from 'Util/localizerUtil';
 
-import {bodyCss, contentContainerCss, leftSectionCss, whiteFontCss} from './Layout.styles';
+import {bodyCss, contentContainerCss, leftSectionCss} from './Layout.styles';
+import {NovaBackdrop} from './NovaBackdrop';
+import {NovaLogo} from './NovaLogo';
 
 import {Config} from '../../Config';
+
+/** Left column of the sign-in pages: logo, a short own text and the jellyfish and globe backdrop. */
+export const AuthSidebar = () => {
+  return (
+    <div css={leftSectionCss} className="novae2e-left">
+      <NovaBackdrop />
+      <NovaLogo width={340} style={{maxWidth: '100%', height: 'auto'}} aria-label={t('accessibility.logo.wire')} />
+      <div css={{margin: '2.2rem 0 0'}}>
+        <span className="novae2e-side-head">{t('layoutSidebarHeader')}</span>
+        <span className="novae2e-side-text">{t('layoutSidebarContent')}</span>
+        <div css={{marginTop: '0.9rem'}}>
+          <Link href={Config.getConfig().URL.WEBSITE_BASE} css={{fontWeight: 600, textDecoration: 'underline'}}>
+            {t('layoutSidebarLink')}
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const Layout = ({children}: {children: ReactNode}) => {
   return (
     <FlexBox css={bodyCss}>
-      <div css={leftSectionCss}>
-        <Logo color={COLOR_V2.WHITE} scale={1.9} ariaLabel={t('accessibility.logo.wire')} />
-        <div css={{margin: '4rem 0'}}>
-          <Text bold css={whiteFontCss} fontSize="1.5rem">
-            {t('layoutSidebarHeader')}
-          </Text>
-          <br />
-          <div css={{marginTop: '0.5rem'}}>
-            <Text css={{...whiteFontCss, lineHeight: '1.5rem'}}>{t('layoutSidebarContent')}</Text>
-            <br />
-            <Link href={Config.getConfig().URL.WEBSITE_BASE}>
-              <Bold css={{...whiteFontCss, textDecoration: 'underline'}}> {t('layoutSidebarLink')}</Bold>
-            </Link>
-          </div>
-        </div>
-        <span aria-hidden="true">
-          <WavesPattern />
-        </span>
-      </div>
-
+      <AuthSidebar />
       <div css={contentContainerCss}>{children}</div>
     </FlexBox>
   );

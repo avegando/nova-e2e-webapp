@@ -19,13 +19,12 @@
 
 import {CSSObject} from '@emotion/react';
 
-import {COLOR_V2} from '@wireapp/react-ui-kit';
-
 export const styles: {
   container: CSSObject;
   heading: CSSObject;
   subHeading: CSSObject;
-  link: CSSObject;
+  button: CSSObject;
+  tip: CSSObject;
 } = {
   container: {
     maxWidth: '390px',
@@ -45,11 +44,14 @@ export const styles: {
     fontSize: '16px',
     width: '100%',
   },
-  link: {
-    fontWeight: 500,
-    letterSpacing: '0.05px',
-    lineHeight: '24px',
-    textDecoration: 'underline',
-    color: COLOR_V2.BLACK,
+  button: {
+    marginTop: '8px',
+    marginBottom: 0,
+  },
+  tip: {
+    fontSize: '14px',
+    lineHeight: '20px',
+    width: '100%',
+    color: '#c3ccd4',
   },
 };

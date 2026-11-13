@@ -19,7 +19,9 @@
 
 import type {FunctionComponent} from 'react';
 
-import EmojiPickerReact, {EmojiClickData, EmojiStyle, SkinTones} from 'emoji-picker-react';
+import EmojiPickerReact, {Categories, EmojiClickData, EmojiStyle, SkinTones, Theme} from 'emoji-picker-react';
+
+import {t} from 'Util/localizerUtil';
 
 export {SkinTones};
 
@@ -39,6 +41,8 @@ export const defaultEmojiStyle = EmojiStyle.NATIVE;
 export const EmojiPickerAdapter: FunctionComponent<EmojiPickerAdapterProperties> = properties => {
   const {onEmojiClick, searchPlaceholder, defaultSkinTone} = properties;
 
+  const isPhone = window.matchMedia('(max-width: 720px)').matches;
+
   function handleEmojiClick(emojiClickData: EmojiClickData) {
     const emojiPickerSelection: EmojiPickerSelection = {
       emoji: emojiClickData.emoji,
@@ -54,6 +58,22 @@ export const EmojiPickerAdapter: FunctionComponent<EmojiPickerAdapterProperties>
       onEmojiClick={handleEmojiClick}
       searchPlaceHolder={searchPlaceholder}
       defaultSkinTone={defaultSkinTone}
+      theme={Theme.DARK}
+      previewConfig={{showPreview: false}}
+      autoFocusSearch={!isPhone}
+      width={isPhone ? '100%' : 350}
+      height={isPhone ? Math.round(Math.min(window.innerHeight * 0.6, 460)) : 450}
+      categories={[
+        {category: Categories.SUGGESTED, name: t('novaEmojiCategoryRecent')},
+        {category: Categories.SMILEYS_PEOPLE, name: t('novaEmojiCategoryPeople')},
+        {category: Categories.ANIMALS_NATURE, name: t('novaEmojiCategoryNature')},
+        {category: Categories.FOOD_DRINK, name: t('novaEmojiCategoryFood')},
+        {category: Categories.TRAVEL_PLACES, name: t('novaEmojiCategoryTravel')},
+        {category: Categories.ACTIVITIES, name: t('novaEmojiCategoryActivities')},
+        {category: Categories.OBJECTS, name: t('novaEmojiCategoryObjects')},
+        {category: Categories.SYMBOLS, name: t('novaEmojiCategorySymbols')},
+        {category: Categories.FLAGS, name: t('novaEmojiCategoryFlags')},
+      ]}
     />
   );
 };

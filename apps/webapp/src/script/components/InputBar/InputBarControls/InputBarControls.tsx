@@ -27,6 +27,7 @@ import {Conversation} from 'Repositories/entity/Conversation';
 import {Config} from 'src/script/Config';
 
 import {ControlButtons} from './ControlButtons';
+import {NovaVoiceRecorder} from './NovaVoiceRecorder/NovaVoiceRecorder';
 import {SendMessageButton} from './SendMessageButton/SendMessageButton';
 
 import {MessageContent} from '../common/messageContent/messageContent';
@@ -118,12 +119,17 @@ export const InputBarControls = ({
           onCellAssetUpload={onCellAssetUpload}
         />
       </ul>
-      <SendMessageButton
-        isDisabled={isSendingDisabled || isSending}
-        isLoading={isSending}
-        onSend={onSend}
-        className="input-bar-buttons__send"
-      />
+      {/* NovaE2E: while there is nothing to send, the place of the send button is the microphone for a voice message */}
+      {isSendingDisabled && !isSending && !isEditing ? (
+        <NovaVoiceRecorder onSend={file => onSelectFiles([file])} />
+      ) : (
+        <SendMessageButton
+          isDisabled={isSendingDisabled || isSending}
+          isLoading={isSending}
+          onSend={onSend}
+          className="input-bar-buttons__send"
+        />
+      )}
     </div>
   );
 };

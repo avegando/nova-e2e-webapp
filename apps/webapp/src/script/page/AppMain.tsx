@@ -30,6 +30,7 @@ import {QUERY, StyledApp, THEME_ID, useMatchMedia} from '@wireapp/react-ui-kit';
 import {WebAppEvents} from '@wireapp/webapp-events';
 
 import {CallingContainer} from 'Components/calling/CallingOverlayContainer';
+import {NovaCallBarContainer} from 'Components/calling/NovaCallBar';
 import {ChooseScreen} from 'Components/calling/ChooseScreen';
 import {ConfigToolbar} from 'Components/ConfigToolbar/ConfigToolbar';
 import {ErrorFallback} from 'Components/ErrorFallback';
@@ -76,6 +77,8 @@ import {configureRoutes, navigate} from '../router/Router';
 import {TIME_IN_MILLIS} from '../util/timeUtil';
 import {MainViewModel} from '../view_model/MainViewModel';
 import {WarningsContainer} from '../view_model/WarningsContainer/WarningsContainer';
+import {takePendingInvite} from 'Util/novaInvite';
+import {t} from 'Util/localizerUtil';
 
 export type RightSidebarParams = {
   entity: PanelEntity | null;
@@ -261,6 +264,33 @@ export const AppMain = (properties: AppMainProps) => {
       '/user/:userId': showUserProfile,
     });
 
+    // NovaE2E: a personal invitation link (/?connect=<username>) opens that person's profile once the app runs
+    const invitedHandle = takePendingInvite();
+    if (invitedHandle) {
+      void (async () => {
+        if (invitedHandle === selfUser.username()) {
+          return;
+        }
+        try {
+          // same way the search field finds people: by the beginning of the name, then the exact match
+          const matches = await repositories.search.searchByName(`@${invitedHandle}`);
+          const match = matches.find(user => user.username() === invitedHandle);
+          if (match) {
+            showUserModal({domain: match.domain || apiContext.domain || '', id: match.id});
+            return;
+          }
+        } catch (error) {
+          console.warn('Invitation link: search failed', error);
+        }
+        PrimaryModal.show(PrimaryModal.type.ACKNOWLEDGE, {
+          text: {
+            message: t('novaInviteNotFoundMessage', {username: `@${invitedHandle}`}),
+            title: t('novaInviteNotFoundTitle'),
+          },
+        });
+      })();
+    }
+
     const redirect = localStorage.getItem(App.LOCAL_STORAGE_LOGIN_REDIRECT_KEY);
 
     if (redirect) {
@@ -371,6 +401,8 @@ export const AppMain = (properties: AppMainProps) => {
           {!locked && (
             <>
               <FeatureConfigChangeNotifier selfUserId={selfUser.id} teamState={teamState} />
+
+              <NovaCallBarContainer callingRepository={repositories.calling} />
 
               {viewMode === CallingViewMode.FULL_SCREEN && (
                 <CallingContainer

@@ -19,6 +19,7 @@
 
 import {FC, ReactNode, useEffect} from 'react';
 
+import {Global} from '@emotion/react';
 import is from '@sindresorhus/is';
 import {pathWithParams} from '@wireapp/commons/lib/util/UrlUtil';
 import {IntlProvider} from 'react-intl';
@@ -51,6 +52,7 @@ import {VerifyEmailCode} from './VerifyEmailCode';
 import {VerifyEmailLink} from './VerifyEmailLink';
 
 import {Config} from '../../Config';
+import {novaAuthStyles} from '../component/novaAuthStyles';
 import {RouteA11y} from '../component/RouteA11y';
 import {mapLanguage, normalizeLanguage} from '../localeConfig';
 import {actionRoot as ROOT_ACTIONS} from '../module/action/';
@@ -149,8 +151,10 @@ const RootComponent: FC<RootProps & ConnectedProps & DispatchProps> = ({
   const brandName = Config.getConfig().BRAND_NAME;
   return (
     <IntlProvider locale={normalizeLanguage(language)} messages={loadLanguage(language)}>
+      <Global styles={novaAuthStyles} />
       <StyledApp
-        themeId={THEME_ID.DEFAULT}
+        themeId={THEME_ID.DARK}
+        className="novae2e-auth novae2e-right"
         style={{alignContent: 'center', height: '100%', minHeight: '100vh', display: 'flex'}}
       >
         {isFetchingSSOSettings ? (

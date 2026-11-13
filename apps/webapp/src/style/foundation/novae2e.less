@@ -1,0 +1,714 @@
+/*
+ * NovaE2E look: near-black base, white and silver, one cool cyan accent.
+ * Only values are overridden here, so the layout and behaviour of the app stay as they are.
+ */
+
+html body.theme-dark {
+  --novae2e-accent: #22d3ee;
+  --gray-100: #08090b;
+  --gray-95: #0e1013;
+  --gray-90: #1a1d22;
+  --gray-80: #3a4048;
+  --gray-70: #5b6672;
+  --gray-60: #9aa5af;
+  --gray-40: #d6dde3;
+
+  /* surfaces: near-black instead of grey */
+  --app-bg: #0b0d10;
+  --app-bg-secondary: #111418;
+  --modal-bg: #111418;
+  --message-quote-bg: #161a1f;
+  --message-actions-background: #1a1d22;
+  --message-actions-border: #2a2f36;
+  --checkbox-background: #1a1d22;
+  --checkbox-background-disabled: #1a1d22;
+  --black-border: #2a2f36;
+
+  /* the "end-to-end encrypted" banner uses the accent instead of green */
+  --green-background: rgba(34, 211, 238, 0.08);
+  --green-border: rgba(34, 211, 238, 0.3);
+  --green-color: #22d3ee;
+
+  /* warnings in a clear red-orange */
+  --red-color: #ff6a4d;
+  --red-500: #ff6a4d;
+}
+
+/* Phone browsers: use the visible height (address bar, keyboard) and keep clear of the home indicator. */
+@supports (height: 100dvh) {
+  html,
+  body,
+  #wire-app,
+  #app {
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  #wire-app {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-top: env(safe-area-inset-top, 0);
+    box-sizing: border-box;
+  }
+
+  /* iOS zooms into fields with a font below 16px */
+  input,
+  textarea,
+  [contenteditable='true'] {
+    font-size: 16px !important;
+  }
+}
+
+/* Phones and tablets: the menu handle is always there (touch screens have no hover), easy to see and large enough to tap. */
+@media (max-width: 1000px), (hover: none) {
+  .conversations-sidebar .conversations-sidebar-handle {
+    top: 6px !important;
+    right: -36px !important;
+    display: flex !important;
+    width: 44px !important;
+    height: 44px !important;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(200, 208, 216, 0.5) !important;
+    border-radius: 50% !important;
+    background: #1a1d22 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+
+    svg {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 0 !important;
+      fill: #22d3ee !important;
+
+      path {
+        fill: #22d3ee !important;
+      }
+    }
+  }
+
+  /* room for the handle next to the list title */
+  [data-uie-name='conversation-list-header'] {
+    padding-left: 44px !important;
+  }
+}
+
+/* the dimmed area beside the open phone menu: a tap on it closes the menu */
+.novae2e-sidebar-backdrop {
+  position: fixed;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+}
+
+/* Phones: the app is as high as the visible area (see script/util/novaViewport.ts), so the on-screen keyboard never covers the message field. */
+@media (max-width: 720px) {
+  html.nova-keyboard-open,
+  html.nova-keyboard-open body,
+  html.nova-keyboard-open #wire-app,
+  html.nova-keyboard-open #app,
+  html.nova-keyboard-open #wire-main {
+    height: var(--nova-vvh, 100dvh) !important;
+    max-height: var(--nova-vvh, 100dvh) !important;
+    min-height: 0 !important;
+  }
+
+  html.nova-keyboard-open body {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+  }
+
+  html.nova-keyboard-open #wire-app {
+    padding-bottom: 0;
+  }
+}
+
+/*
+ * Phones, above all as a home-screen app: the page runs under the status bar (clock, camera island) and the home
+ * indicator. The app keeps clear of both. The values are variables so they can be checked without a real phone.
+ */
+:root {
+  --nova-safe-top: env(safe-area-inset-top, 0px);
+  --nova-safe-right: env(safe-area-inset-right, 0px);
+  --nova-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --nova-safe-left: env(safe-area-inset-left, 0px);
+  --nova-app-height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --nova-app-height: 100dvh;
+  }
+}
+
+html.nova-keyboard-open {
+  /* the keyboard covers the home indicator; the visible height comes from script/util/novaViewport.ts */
+  --nova-safe-bottom: 0px;
+  --nova-app-height: var(--nova-vvh, 100vh);
+}
+
+html,
+body {
+  background-color: #05070a;
+}
+
+#wire-app {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* the app itself is positioned against the screen, so the insets are set on it directly */
+#wire-main > #app {
+  top: var(--nova-safe-top) !important;
+  right: var(--nova-safe-right) !important;
+  bottom: auto !important;
+  left: var(--nova-safe-left) !important;
+  width: auto !important;
+  height: calc(var(--nova-app-height) - var(--nova-safe-top) - var(--nova-safe-bottom)) !important;
+}
+
+/* windows that cover the whole screen */
+.modal,
+.video-calling-wrapper,
+#detail-view,
+.detail-view {
+  box-sizing: border-box;
+  padding-top: var(--nova-safe-top);
+  padding-bottom: var(--nova-safe-bottom);
+}
+
+/* sign-in pages */
+.novae2e-auth {
+  box-sizing: border-box;
+  padding-top: var(--nova-safe-top) !important;
+  padding-right: var(--nova-safe-right);
+  padding-bottom: var(--nova-safe-bottom) !important;
+  padding-left: var(--nova-safe-left);
+}
+
+/* Phones: the message field is a clearly visible field with a frame, always at the lower edge; buttons large enough to tap. */
+@media (max-width: 720px) {
+  .conversation-input-bar__input.input-bar-container {
+    padding: 8px 8px 6px;
+    border-top: 1px solid #2a2f36;
+    background-color: #0b0d10 !important;
+  }
+
+  .input-bar-container .input-bar-field {
+    min-height: 44px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    border: 1px solid rgba(200, 208, 216, 0.55);
+    border-radius: 14px;
+    background-color: #12161c;
+  }
+
+  .input-bar-container .input-bar-field:focus-within {
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.22);
+  }
+
+  .input-bar-container .editor-placeholder,
+  .input-bar-container .conversation-input-bar-text-placeholder::before {
+    color: #aab4be !important;
+    font-size: 16px !important;
+  }
+
+  .input-bar-container .input-bar-controls li button,
+  .input-bar-container .controls-right-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Phones: slim bar of a minimised call at the top of the app (see components/calling/NovaCallBar.tsx). */
+:root {
+  --nova-call-bar: 0px;
+}
+
+html.nova-call-bar-open {
+  --nova-call-bar: 52px;
+}
+
+#wire-main > #app {
+  top: calc(var(--nova-safe-top) + var(--nova-call-bar)) !important;
+  height: calc(var(--nova-app-height) - var(--nova-safe-top) - var(--nova-safe-bottom) - var(--nova-call-bar)) !important;
+}
+
+.novae2e-call-bar {
+  position: fixed;
+  z-index: 10000;
+  top: var(--nova-safe-top);
+  right: var(--nova-safe-right);
+  left: var(--nova-safe-left);
+  display: flex;
+  height: 52px;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.45);
+  background: #0e2a30;
+  color: #f2f4f7;
+  gap: 6px;
+}
+
+.novae2e-call-bar__open {
+  display: flex;
+  min-width: 0;
+  height: 44px;
+  flex: 1;
+  align-items: center;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: 600 15px/1.2 inherit;
+  gap: 8px;
+  text-align: left;
+}
+
+.novae2e-call-bar__dot {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border-radius: 50%;
+  background: #30db5b;
+}
+
+.novae2e-call-bar__name {
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novae2e-call-bar__time {
+  flex: none;
+  color: #c3ccd4;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+.novae2e-call-bar__hint {
+  flex: none;
+  margin-left: auto;
+  color: #22d3ee;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.novae2e-call-bar__button {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(200, 208, 216, 0.45);
+  border-radius: 50%;
+  background: #1a1d22;
+  color: #f2f4f7;
+  cursor: pointer;
+}
+
+.novae2e-call-bar__button--active {
+  border-color: #22d3ee;
+  background: #22d3ee;
+  color: #0a0f14;
+}
+
+.novae2e-call-bar__button--leave {
+  border-color: #ff6a4d;
+  background: #ff6a4d;
+  color: #0a0f14;
+}
+
+@media (max-width: 720px) {
+  .input-bar-container .input-bar-buttons {
+    margin-top: 6px;
+  }
+}
+
+/* Connection and update bars: dark, readable, below the status bar, and they never catch taps meant for the app. */
+html body .warning-bar.warning-bar-connection,
+html body .warning-bar.warning-bar-progress {
+  border-bottom: 1px solid rgba(34, 211, 238, 0.5);
+  background-color: #12161c;
+  color: #f2f4f7;
+  pointer-events: none;
+
+  a,
+  button {
+    color: #22d3ee;
+    pointer-events: auto;
+  }
+}
+
+html body .warning-bar.warning-bar-progress {
+  border-bottom: 0;
+  background-color: #22d3ee;
+}
+
+/* Quick reaction bar: line icons in silver, cyan when pressed; large enough to tap on phones */
+[data-uie-name='icon-reaction-thumb'],
+[data-uie-name='icon-reaction-heart'] {
+  color: #c8d2db;
+}
+
+/* line drawing: the menu styles would fill every path */
+[data-uie-name='icon-reaction-thumb'] path,
+[data-uie-name='icon-reaction-heart'] path {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+button[aria-pressed='true'] > [data-uie-name='icon-reaction-thumb'],
+button[aria-pressed='true'] > [data-uie-name='icon-reaction-heart'] {
+  color: #22d3ee;
+}
+
+/* Emoji picker */
+.novae2e-emoji-sheet .EmojiPickerReact {
+  --epr-bg-color: #12161c;
+  --epr-category-label-bg-color: #12161c;
+  --epr-search-input-bg-color: #1a1d22;
+  --epr-picker-border-color: rgba(200, 208, 216, 0.3);
+  --epr-highlight-color: #22d3ee;
+  --epr-text-color: #f2f4f7;
+}
+
+@media (max-width: 720px) {
+  .novae2e-emoji-sheet {
+    z-index: 100001;
+    box-sizing: border-box;
+    padding-bottom: var(--nova-safe-bottom);
+    border-top: 1px solid rgba(200, 208, 216, 0.3);
+    border-radius: 18px 18px 0 0;
+    background: #12161c;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6);
+  }
+
+  .novae2e-emoji-sheet .EmojiPickerReact {
+    border: 0;
+    border-radius: 18px 18px 0 0;
+  }
+}
+
+/* Phones: while the call bar is shown, the tall call cell inside the chat gives way to it (it stays in the conversation list). */
+html.nova-call-bar-open .conversation-list-calling-cell-background:not(#left-column .conversation-list-calling-cell-background) {
+  display: none;
+}
+
+/* Voice messages (components/InputBar/InputBarControls/NovaVoiceRecorder) */
+.novae2e-voice-button {
+  display: flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #1ba6bd;
+  color: #031316;
+  touch-action: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+.novae2e-voice-panel {
+  position: fixed;
+  z-index: 9000;
+  right: var(--nova-safe-right);
+  bottom: var(--nova-safe-bottom);
+  left: var(--nova-safe-left);
+  display: flex;
+  min-height: 64px;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 8px 10px;
+  border-top: 1px solid rgba(34, 211, 238, 0.45);
+  background: #12161c;
+  color: #f2f4f7;
+  gap: 10px;
+}
+
+.novae2e-voice-panel__button {
+  min-width: 44px;
+  min-height: 44px;
+  flex: none;
+  padding: 0 14px;
+  border: 1px solid rgba(200, 208, 216, 0.45);
+  border-radius: 12px;
+  background: #1a1d22;
+  color: #f2f4f7;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.novae2e-voice-panel__button--main {
+  margin-left: auto;
+  border-color: #1ba6bd;
+  background: #1ba6bd;
+  color: #031316;
+}
+
+.novae2e-voice-panel__dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: #ff6a4d;
+}
+
+.novae2e-voice-panel__time {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.novae2e-voice-panel__meter {
+  overflow: hidden;
+  height: 6px;
+  min-width: 40px;
+  flex: 1;
+  border-radius: 3px;
+  background: #2a2f36;
+
+  span {
+    display: block;
+    height: 100%;
+    background: #22d3ee;
+    transform-origin: left center;
+  }
+}
+
+.novae2e-voice-panel__text {
+  min-width: 0;
+  color: #c3ccd4;
+  font-size: 14px;
+}
+
+.novae2e-voice-panel__audio {
+  min-width: 0;
+  height: 40px;
+  flex: 1;
+}
+
+/* Delivery ticks of the own messages (components/MessagesList/Message/NovaMessageTicks) */
+.nova-ticks {
+  display: inline-flex;
+  align-items: center;
+  color: #8b98a5;
+  line-height: 1;
+
+  svg {
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+  }
+
+  &--sending {
+    opacity: 0.7;
+  }
+
+  &--read {
+    color: #22d3ee;
+  }
+}
+
+/* Display names from the configuration (util/novaDisplayName): five letters that many system fonts miss
+   come from a small subset of Noto Sans (SIL Open Font License, see brand/source/SCHRIFT-LIZENZ-NotoSans-OFL.txt).
+   The file is only loaded when one of these letters is on the page. */
+@font-face {
+  font-display: swap;
+  font-family: 'Nova Name';
+  font-style: normal;
+  font-weight: 100 900;
+  src: url('/font/nova-name.woff2') format('woff2');
+  unicode-range: U+0244, U+0246, U+20A5, U+20B3, U+2C67;
+}
+
+body {
+  --font-family-base: emoji, 'Nova Name', BlinkMacSystemFont, -apple-system, Helvetica Neue, Arial, sans-serif;
+}
+
+/* the page font comes from the component library, so the subset is put in front of that list as well */
+html body {
+  font-family:
+    'Nova Name',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Helvetica,
+    Arial,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol';
+}
+
+.nova-admin-badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  margin-left: 6px;
+  vertical-align: middle;
+
+  svg {
+    display: block;
+  }
+}
+
+/* Profile picture: choose the visible part (accountPreferences/NovaAvatarCropper) */
+.nova-crop {
+  position: fixed;
+  z-index: 10000010;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  background: rgba(2, 4, 6, 0.78);
+  inset: 0;
+}
+
+.nova-crop__panel {
+  display: flex;
+  width: min(380px, 100%);
+  max-height: 100%;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid rgba(190, 205, 215, 0.18);
+  border-radius: 20px;
+  background: #0d1217;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+  color: #eef2f5;
+  overflow-y: auto;
+}
+
+.nova-crop__title {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nova-crop__frame {
+  position: relative;
+  overflow: hidden;
+  width: min(320px, 100%);
+  flex: none;
+  aspect-ratio: 1;
+  background: #05070a;
+  border-radius: 14px;
+  cursor: grab;
+  outline: none;
+  touch-action: none;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.45);
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: none;
+    max-height: none;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+
+/* everything outside the circle is dimmed, a thin ring marks the edge */
+.nova-crop__ring {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: 0 0 0 999px rgba(5, 7, 10, 0.62);
+  inset: 0;
+  pointer-events: none;
+}
+
+.nova-crop__hint {
+  margin: 12px 0 0;
+  color: #aab5bf;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.nova-crop__zoom {
+  display: flex;
+  width: min(320px, 100%);
+  align-items: center;
+  margin-top: 14px;
+  color: #c9d2da;
+  font-size: 13px;
+  gap: 12px;
+
+  input[type='range'] {
+    height: 28px;
+    flex: 1;
+    padding: 0;
+    border: 0 !important;
+    margin: 0;
+    accent-color: #22d3ee;
+    appearance: auto;
+    background: transparent !important;
+  }
+}
+
+.nova-crop__actions {
+  display: flex;
+  width: min(320px, 100%);
+  margin-top: 18px;
+  gap: 12px;
+}
+
+.nova-crop__button {
+  min-height: 46px;
+  flex: 1;
+  border: 1px solid rgba(200, 208, 216, 0.4);
+  border-radius: 14px;
+  background: transparent;
+  color: #eef2f5;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+
+  &:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+  }
+
+  &--primary {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: #1ba6bd;
+    color: #031316;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

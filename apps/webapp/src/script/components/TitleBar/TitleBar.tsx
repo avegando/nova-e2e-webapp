@@ -26,6 +26,7 @@ import {container} from 'tsyringe';
 import {CallIcon, IconButton, IconButtonVariant, QUERY, TabIndex, useMatchMedia} from '@wireapp/react-ui-kit';
 import {WebAppEvents} from '@wireapp/webapp-events';
 
+import {NovaAdminBadge} from 'Components/NovaAdminBadge';
 import {ConversationVerificationBadges} from 'Components/Badge';
 import {useCallAlertState} from 'Components/calling/useCallAlertState';
 import * as Icon from 'Components/Icon';
@@ -328,6 +329,10 @@ export const TitleBar = ({
             <span className="conversation-title-bar-name-label" data-uie-name="status-conversation-title-bar-label">
               {displayName}
             </span>
+
+            {conversation.is1to1() && conversation.firstUserEntity() && (
+              <NovaAdminBadge user={conversation.firstUserEntity()!} />
+            )}
 
             <ConversationVerificationBadges conversation={conversation} />
           </div>

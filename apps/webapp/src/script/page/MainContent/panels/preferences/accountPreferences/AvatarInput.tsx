@@ -34,6 +34,7 @@ import {isErrorWithType} from 'Util/typePredicateUtil';
 import {validateProfileImageResolution} from 'Util/util';
 
 import {FileInput} from './FileInput';
+import {NovaAvatarCropper} from './NovaAvatarCropper';
 
 import {Config} from '../../../../../Config';
 import {UserError} from '../../../../../error/userError';
@@ -56,6 +57,7 @@ export const AvatarInput = ({
 }: AvatarInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [pictureToCrop, setPictureToCrop] = useState<File>();
 
   if (!isActivatedAccount) {
     return <Avatar participant={selfUser} avatarSize={AVATAR_SIZE.X_LARGE} />;
@@ -93,7 +95,9 @@ export const AvatarInput = ({
     try {
       const isValid = await validateProfileImageResolution(newUserPicture, minWidth, minHeight);
       if (isValid) {
-        return await userRepository.changePicture(newUserPicture);
+        // the user first chooses the visible part, the upload follows in uploadCroppedPicture
+        setPictureToCrop(newUserPicture);
+        return true;
       }
 
       const messageString = t('modalPictureTooSmallMessage');
@@ -102,6 +106,23 @@ export const AvatarInput = ({
     } catch (error: unknown) {
       logger.error('Failed to validate profile image', error);
       return false;
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const uploadCroppedPicture = async (croppedPicture: File) => {
+    setPictureToCrop(undefined);
+    setIsUploading(true);
+    try {
+      await userRepository.changePicture(croppedPicture);
+    } catch (error: unknown) {
+      logger.error('Failed to upload profile image', error);
+      PrimaryModal.show(
+        PrimaryModal.type.ACKNOWLEDGE,
+        {text: {message: t('novaCropUploadFailed'), title: t('novaCropTitle')}},
+        undefined,
+      );
     } finally {
       setIsUploading(false);
     }
@@ -127,6 +148,14 @@ export const AvatarInput = ({
   };
 
   return (
+    <>
+      {pictureToCrop && (
+        <NovaAvatarCropper
+          file={pictureToCrop}
+          onCancel={() => setPictureToCrop(undefined)}
+          onConfirm={uploadCroppedPicture}
+        />
+      )}
     <div
       tabIndex={TabIndex.FOCUSABLE}
       role="button"
@@ -164,5 +193,6 @@ export const AvatarInput = ({
         <span className="icon-camera" />
       </label>
     </div>
+    </>
   );
 };

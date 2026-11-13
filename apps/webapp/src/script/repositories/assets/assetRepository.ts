@@ -31,6 +31,7 @@ import type {User} from 'Repositories/entity/User';
 import {TeamState} from 'Repositories/team/TeamState';
 import {stripImageExifData} from 'Util/imageUtil';
 import {getLogger, Logger} from 'Util/logger';
+import {openFileInApp, opensFilesInApp} from 'Util/novaFileViewer';
 import {downloadBlob, loadFileBuffer, loadImage} from 'Util/util';
 import {WebWorker} from 'Util/worker';
 
@@ -143,6 +144,9 @@ export class AssetRepository {
       if (!blob) {
         throw new Error('No blob received.');
       }
+      if (opensFilesInApp()) {
+        return openFileInApp(blob, fileName);
+      }
       return downloadBlob(blob, fileName);
     } catch (error: unknown) {
       return this.logger.error('Failed to download blob', error);
@@ -157,6 +161,9 @@ export class AssetRepository {
         throw new Error('No blob received.');
       }
       asset.status(AssetTransferState.UPLOADED);
+      if (opensFilesInApp()) {
+        return openFileInApp(blob, asset.file_name ?? 'file');
+      }
       return downloadBlob(blob, asset.file_name ?? 'file');
     } catch (error: unknown) {
       if (error instanceof Error) {

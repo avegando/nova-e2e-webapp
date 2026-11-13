@@ -29,7 +29,6 @@ import {styles} from './SetAccountType.styles';
 
 import {Config} from '../../Config';
 import {BackButton} from '../component/BackButton';
-import {EXTERNAL_ROUTE} from '../externalRoute';
 import {ROUTE} from '../route';
 import {pathWithParams} from '../util/urlUtil';
 
@@ -40,8 +39,10 @@ export const SetAccountType = () => {
     navigate(ROUTE.CREATE_ACCOUNT);
   };
 
+  // NovaE2E: a team is created inside the app after sign-up ("Create team" in the conversation list),
+  // because there is no separate team sign-up site on this server.
   const onCreateTeamAccount = () => {
-    window.open(EXTERNAL_ROUTE.WIRE_TEAMS_SIGNUP, '_blank');
+    navigate(ROUTE.CREATE_ACCOUNT);
   };
 
   if (!Config.getConfig().FEATURE.ENABLE_ACCOUNT_REGISTRATION) {
@@ -58,8 +59,9 @@ export const SetAccountType = () => {
       action: onCreateTeamAccount,
       features: [
         t('selectTeamAccountTypeOptionFeature1'),
+        t('selectTeamAccountTypeOptionNovaHint'),
         ...(!isMacDesktopApp ? [t('selectTeamAccountTypeOptionFeature2')] : []),
-      ],
+      ].filter(Boolean),
       isPrimary: true,
     },
     {
@@ -69,7 +71,7 @@ export const SetAccountType = () => {
       features: [
         t('selectPersonalAccountTypeOptionFeature1'),
         ...(!isMacDesktopApp ? [t('selectPersonalAccountTypeOptionFeature2')] : []),
-      ],
+      ].filter(Boolean),
       action: onCreatePersonalAccount,
     },
   ];
@@ -98,6 +100,9 @@ export const SetAccountType = () => {
             />
           ))}
         </FlexBox>
+        <p css={styles.salesHint} data-uie-name="status-sales-hint">
+          {t('selectAccountTypeSalesHint')} <a href="mailto:sales@novaos.cloud">sales@novaos.cloud</a>
+        </p>
       </FlexBox>
     </Page>
   );

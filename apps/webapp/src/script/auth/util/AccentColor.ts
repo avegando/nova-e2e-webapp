@@ -26,7 +26,7 @@ export interface AccentColor {
 }
 
 export const STRONG_BLUE: AccentColor = {
-  color: '#2391d3',
+  color: '#0891b2',
   id: 1,
   name: 'StrongBlue',
 };
@@ -50,13 +50,13 @@ export const BRIGHT_ORANGE: AccentColor = {
 };
 
 export const SOFT_PINK: AccentColor = {
-  color: '#fe5ebd',
+  color: '#aab5bf',
   id: 6,
   name: 'SoftPink',
 };
 
 export const VIOLET: AccentColor = {
-  color: '#9c00fe',
+  color: '#5b6672',
   id: 7,
   name: 'Violet',
 };

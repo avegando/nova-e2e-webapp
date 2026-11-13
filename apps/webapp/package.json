@@ -41,7 +41,7 @@
     "@wireapp/core": "workspace:^",
     "@wireapp/kalium-backup": "0.0.4",
     "@wireapp/promise-queue": "2.4.13",
-    "@wireapp/react-ui-kit": "9.76.0",
+    "@wireapp/react-ui-kit": "patch:@wireapp/react-ui-kit@patch%3A@wireapp/react-ui-kit@npm%253A9.76.0%23~/.yarn/patches/@wireapp-react-ui-kit-npm-9.76.0-9214acdf94.patch%3A%3Aversion=9.76.0&hash=280e7b#~/.yarn/patches/@wireapp-react-ui-kit-patch-dc45eb4725.patch",
     "@wireapp/store-engine-dexie": "2.1.24",
     "@wireapp/telemetry": "0.3.10",
     "@wireapp/webapp-events": "0.29.2",

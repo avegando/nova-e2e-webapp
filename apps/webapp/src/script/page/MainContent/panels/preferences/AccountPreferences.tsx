@@ -90,8 +90,9 @@ export const AccountPreferences = ({
 }: AccountPreferencesProps) => {
   const core = container.resolve(Core);
   const {isTeam, teamName} = useKoSubscribableChildren(teamState, ['isTeam', 'teamName']);
-  const {name, email, availability, username, managedBy} = useKoSubscribableChildren(selfUser, [
+  const {name, novaStoredName, email, availability, username, managedBy} = useKoSubscribableChildren(selfUser, [
     'name',
+    'novaStoredName',
     'email',
     'availability',
     'username',
@@ -177,7 +178,11 @@ export const AccountPreferences = ({
               marginLeft: '-8px',
             }}
           >
-            <NameInput canEditProfile={canEditProfile} name={name} userRepository={userRepository} />
+            <NameInput
+              canEditProfile={canEditProfile}
+              name={novaStoredName ?? name}
+              userRepository={userRepository}
+            />
 
             <UsernameInput
               canEditProfile={canEditProfile}

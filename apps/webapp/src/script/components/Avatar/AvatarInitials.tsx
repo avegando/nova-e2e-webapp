@@ -31,7 +31,7 @@ interface AvatarInitialsProps {
   isResponsive?: boolean;
 }
 
-const AvatarInitials: FC<AvatarInitialsProps> = ({avatarSize, initials, color = '#fff', isResponsive = false}) => (
+const AvatarInitials: FC<AvatarInitialsProps> = ({avatarSize, initials, color = '#0A0F14', isResponsive = false}) => (
   <div
     css={{
       ...CSS_FILL_PARENT,

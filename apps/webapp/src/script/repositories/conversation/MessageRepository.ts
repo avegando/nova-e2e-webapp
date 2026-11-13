@@ -737,7 +737,14 @@ export class MessageRepository {
     originalId?: string,
   ) {
     try {
-      const metadata = await buildMetadata(file);
+      // NovaE2E: a file whose sound or picture this browser cannot decode (for example M4A without the codec) is still
+      // sent, as a normal file, instead of silently not being sent at all
+      let metadata: Awaited<ReturnType<typeof buildMetadata>> = undefined;
+      try {
+        metadata = await buildMetadata(file);
+      } catch (metadataError: unknown) {
+        this.logger.warn('No preview data for this file, sending it as a plain file', metadataError);
+      }
       const meta = {
         audio: (isAudio(file) && metadata) || null,
         video: (isVideo(file) && metadata) || null,

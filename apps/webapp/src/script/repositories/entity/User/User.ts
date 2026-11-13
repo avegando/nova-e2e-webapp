@@ -93,6 +93,10 @@ export class User {
   public readonly managedBy: ko.Observable<string>;
   public readonly mediumPictureResource: ko.Observable<AssetRemoteData>;
   public readonly name: ko.Observable<string>;
+  /** NovaE2E: the name as stored on the server while a display name from the configuration is shown (util/novaDisplayName) */
+  public readonly novaStoredName: ko.Observable<string | undefined> = ko.observable();
+  /** NovaE2E: badge from the configuration (util/novaDisplayName) */
+  public novaBadge?: 'admin';
   public readonly previewPictureResource: ko.Observable<AssetRemoteData>;
   public readonly providerName: ko.Observable<string | undefined> = ko.observable();
   public readonly teamRole: ko.Observable<TEAM_ROLE>;
@@ -112,7 +116,6 @@ export class User {
     return {
       [ACCENT_ID.BLUE]: 'var(--blue-500)',
       [ACCENT_ID.GREEN]: 'var(--green-500)',
-      [ACCENT_ID.PURPLE]: 'var(--purple-500)',
       [ACCENT_ID.AMBER]: 'var(--amber-500)',
       [ACCENT_ID.RED]: 'var(--red-500)',
       [ACCENT_ID.TURQUOISE]: 'var(--turquoise-500)',
@@ -162,7 +165,8 @@ export class User {
     this.managedBy = ko.observable(User.CONFIG.MANAGED_BY.WIRE);
 
     this.initials = ko.pureComputed(() => {
-      const nameParts = this.name().toUpperCase().split(' ');
+      const shownName = this.name();
+      const nameParts = (this.novaStoredName() || shownName).toUpperCase().split(' ');
       if (nameParts.length > 1) {
         const first = getFirstChar(nameParts[0]);
         const last = getFirstChar(nameParts[nameParts.length - 1]);

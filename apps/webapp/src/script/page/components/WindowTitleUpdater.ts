@@ -63,7 +63,7 @@ const useWindowTitle = () => {
         document.querySelector("link[rel*='shortcut icon']") || document.createElement('link');
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
-      link.href = `/image/favicon${iconBadge}.ico`;
+      link.href = `/image/favicon${iconBadge}-v2.ico`;
       document.getElementsByTagName('head')[0].appendChild(link);
     },
     [setUnreadMessagesCount],

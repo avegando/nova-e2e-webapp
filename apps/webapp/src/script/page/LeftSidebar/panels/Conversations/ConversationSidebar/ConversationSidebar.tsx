@@ -77,6 +77,13 @@ export const ConversationSidebar = ({
   showNotificationsBadge,
   channelConversations,
 }: ConversationSidebarProps) => {
+  // Phones: the open menu covers the list, so it closes again after a choice (folders expand inside the menu and keep it open).
+  const closeOnPhone = () => {
+    if (isScreenLessThanMdBreakpoint && isOpen) {
+      toggleOpen();
+    }
+  };
+
   return (
     <nav className="conversations-sidebar" css={conversationsSidebarStyles(isScreenLessThanMdBreakpoint)}>
       <FadingScrollbar className="conversations-sidebar-items" data-is-collapsed={!isOpen}>
@@ -88,7 +95,12 @@ export const ConversationSidebar = ({
         />
 
         <ConversationTabs
-          onChangeTab={changeTab}
+          onChangeTab={(nextTab, folderId) => {
+            changeTab(nextTab, folderId);
+            if (nextTab !== SidebarTabs.FOLDER) {
+              closeOnPhone();
+            }
+          }}
           currentTab={currentTab}
           groupConversations={groupConversations}
           directConversations={directConversations}
@@ -97,7 +109,10 @@ export const ConversationSidebar = ({
           archivedConversations={archivedConversations}
           draftConversations={draftConversations}
           conversationRepository={conversationRepository}
-          onClickPreferences={onClickPreferences}
+          onClickPreferences={contentState => {
+            onClickPreferences(contentState);
+            closeOnPhone();
+          }}
           showNotificationsBadge={showNotificationsBadge}
           selfUser={selfUser}
           channelConversations={channelConversations}
@@ -108,9 +123,16 @@ export const ConversationSidebar = ({
         css={conversationsSidebarHandleStyles(isOpen)}
         className="conversations-sidebar-handle"
         onClick={toggleOpen}
+        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={isOpen}
+        data-uie-name="do-toggle-sidebar"
       >
         <ChevronIcon css={conversationsSidebarHandleIconStyles} />
       </IconButton>
+
+      {isScreenLessThanMdBreakpoint && isOpen && (
+        <div className="novae2e-sidebar-backdrop" onClick={toggleOpen} aria-hidden="true" data-uie-name="do-close-sidebar" />
+      )}
     </nav>
   );
 };

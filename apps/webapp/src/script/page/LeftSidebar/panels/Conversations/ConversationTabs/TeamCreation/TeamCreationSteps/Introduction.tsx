@@ -40,7 +40,7 @@ export const Introduction = ({onNextStep}: StepProps) => {
     t('teamCreationIntroListItem3'),
     t('teamCreationIntroListItem4'),
     t('teamCreationIntroListItem5'),
-  ];
+  ].filter(Boolean);
 
   return (
     <>
@@ -64,11 +64,13 @@ export const Introduction = ({onNextStep}: StepProps) => {
         </div>
       ))}
 
-      <Link block css={introStepLinkCss} href={Config.getConfig().URL.PRICING} targetBlank>
-        <span className="text-medium" data-uie-name="team-creation-intro-link">
-          {t('teamCreationIntroLink')}
-        </span>
-      </Link>
+      {Config.getConfig().URL.PRICING && (
+        <Link block css={introStepLinkCss} href={Config.getConfig().URL.PRICING} targetBlank>
+          <span className="text-medium" data-uie-name="team-creation-intro-link">
+            {t('teamCreationIntroLink')}
+          </span>
+        </Link>
+      )}
       <div className="modal__buttons" css={modalButtonsCss}>
         <Button css={buttonCss} onClick={onNextStep} data-uie-name="do-continue">
           {t('teamCreationContinue')}

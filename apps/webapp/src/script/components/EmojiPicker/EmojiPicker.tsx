@@ -53,8 +53,20 @@ export const EmojiPicker: FunctionComponent<EmojiPickerProperties> = properties 
   let isKeyboardEvent = false;
 
   useEffect(() => {
+    // phones: close the on-screen keyboard, it would cover the sheet
+    if (window.matchMedia('(max-width: 720px)').matches && document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  }, []);
+
+  useEffect(() => {
     const mainElement = emojiRef.current;
     function updateSize() {
+      // NovaE2E, phones: a sheet from below over the full width instead of a window next to the button
+      if (window.matchMedia('(max-width: 720px)').matches) {
+        setStyle({bottom: 0, left: 0, opacity: 1, position: 'fixed', right: 0, top: 'auto', width: '100%'});
+        return;
+      }
       const emojiPickerWidth = 350;
       const reactionMenuOpenerButtonHeight = 40;
       const left = mainElement && posX - emojiPickerWidth;
@@ -119,6 +131,7 @@ export const EmojiPicker: FunctionComponent<EmojiPickerProperties> = properties 
             ref={emojiRef}
             style={{maxHeight: window.innerHeight, ...style}}
             role="dialog"
+            className="novae2e-emoji-sheet"
             data-uie-name="emoji-picker-dialog"
             // stop propagation to prevent emoji picker search input from losing focus
             // due to message element's handleFocus

@@ -25,6 +25,7 @@ import {Link, LinkVariant} from '@wireapp/react-ui-kit';
 
 import {User} from 'Repositories/entity/User';
 import {TeamState} from 'Repositories/team/TeamState';
+import {NovaLicenseNotice} from 'src/script/auth/component/NovaLicenseNotice';
 import {t} from 'Util/localizerUtil';
 
 import {PreferencesPage} from './components/PreferencesPage';
@@ -120,6 +121,7 @@ const AboutPreferences = ({selfUser, teamState = container.resolve(TeamState)}: 
         </p>
         <p className="preferences-detail">{t('preferencesAboutAVSVersion', {version: config.AVS_VERSION})}</p>
         <p className="preferences-detail">{t('preferencesAboutCopyright')}</p>
+        <NovaLicenseNotice className="preferences-detail" />
       </PreferencesSection>
     </PreferencesPage>
   );

@@ -133,7 +133,7 @@ export class ContentMessage extends Message {
 
     if (!file_name) {
       const date = this.timestamp();
-      file_name = `Wire ${formatLocale(date, 'yyyy-MM-dd')} at ${formatTimeShort(date)}`;
+      file_name = `NovaE2E ${formatLocale(date, 'yyyy-MM-dd')} at ${formatTimeShort(date)}`;
     }
 
     if (asset_et.file_type) {

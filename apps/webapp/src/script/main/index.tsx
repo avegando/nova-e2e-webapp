@@ -47,6 +47,11 @@ import {createIncrementalHttpRetryBackoffReset} from '../lifecycle/createIncreme
 import {APIClient} from '../service/apiClientSingleton';
 import {Core} from '../service/coreSingleton';
 import {createAPIClient} from '../service/createApiClient';
+import {captureInviteFromUrl} from 'src/script/util/novaInvite';
+import {initNovaViewport} from 'src/script/util/novaViewport';
+
+initNovaViewport();
+captureInviteFromUrl();
 
 document.addEventListener('DOMContentLoaded', async () => {
   const config = Config.getConfig();

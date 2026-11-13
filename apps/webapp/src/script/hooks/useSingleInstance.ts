@@ -29,21 +29,57 @@ import {createUuid} from 'Util/uuid';
 const CONFIG = {
   COOKIE_NAME: 'app_opened',
   INTERVAL: TIME_IN_MILLIS.SECOND,
+  /** NovaE2E: a marker that has not been refreshed for this long belongs to a page that no longer runs. */
+  STALE_AFTER: TIME_IN_MILLIS.SECOND * 5,
 };
+
+type InstanceMarker = {appInstanceId?: string; seenAt?: number};
+
+function readMarker(): InstanceMarker | undefined {
+  const cookieValue = Cookies.get(CONFIG.COOKIE_NAME);
+  if (!cookieValue) {
+    return undefined;
+  }
+  try {
+    return JSON.parse(cookieValue);
+  } catch {
+    return undefined;
+  }
+}
+
+function writeMarker(instanceId: string) {
+  Cookies.set(CONFIG.COOKIE_NAME, JSON.stringify({appInstanceId: instanceId, seenAt: Date.now()}), {sameSite: 'Lax'});
+}
+
+/*
+ * NovaE2E: phones drop a page without a clean unload (a file opens in its place, the system frees memory). The marker
+ * of that page then stayed behind and the next start took it for a second tab and went to the sign-in page. The running
+ * page now refreshes its marker every second; a marker that is not refreshed any more is ignored at the next start.
+ */
+function isStale(marker: InstanceMarker) {
+  // a marker without a time stamp was written by an earlier version of the app and is never refreshed
+  return typeof marker.seenAt !== 'number' || Date.now() - marker.seenAt > CONFIG.STALE_AFTER;
+}
 
 function isRunningInstance(instanceId?: string) {
   if (Runtime.isDesktopApp()) {
     return true;
   }
-  const cookieValue = Cookies.get(CONFIG.COOKIE_NAME);
-  const otherInstanceId = cookieValue ? JSON.parse(cookieValue).appInstanceId : cookieValue;
-  return otherInstanceId === instanceId;
+  const marker = readMarker();
+  if (instanceId === undefined) {
+    // a page that is not registered (yet): nobody else runs when there is no marker or only a leftover one
+    return !marker || isStale(marker);
+  }
+  // a registered page: a missing marker is not another instance (restored page, cleared cookie)
+  return !marker || marker.appInstanceId === instanceId;
 }
 
 function poll(instanceIdRef: {current: string | undefined}, onNewInstance: () => void) {
   const checkSingleInstance = (): void => {
     if (!isRunningInstance(instanceIdRef.current)) {
       onNewInstance();
+    } else if (instanceIdRef.current) {
+      writeMarker(instanceIdRef.current);
     }
   };
   const interval = window.setInterval(checkSingleInstance, CONFIG.INTERVAL);
@@ -55,7 +91,7 @@ function killCurrentInstance() {
 }
 
 function register(instanceId: string) {
-  Cookies.set(CONFIG.COOKIE_NAME, JSON.stringify({appInstanceId: instanceId}), {sameSite: 'Lax'});
+  writeMarker(instanceId);
   return () => killCurrentInstance();
 }
 

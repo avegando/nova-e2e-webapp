@@ -1,0 +1,199 @@
+diff --git a/lib/DataDisplay/Icon/ProteusVerified.js b/lib/DataDisplay/Icon/ProteusVerified.js
+index d2226932733c9f0aef5a074a6eeed61537f4caae..60f277c3e82269741d2cb87f02db02a1445affcc 100644
+--- a/lib/DataDisplay/Icon/ProteusVerified.js
++++ b/lib/DataDisplay/Icon/ProteusVerified.js
+@@ -21,5 +21,5 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+  *
+  */
+ const SVGIcon_1 = require("./SVGIcon");
+-const ProteusVerified = (props) => ((0, jsx_runtime_1.jsxs)(SVGIcon_1.SVGIcon, { realWidth: 16, realHeight: 16, ...props, children: [(0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M15 1.87197V8C15 12 12.0344 15.0977 8 16C4.00718 15.0977 1 12 1 8V2L8 0L15 1.87197Z", fill: "#0552A0" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M8 16C4.00718 15.0977 1 12 1 8V2L8 0C8 0 8 13 8 16Z", fill: "#6AA4DE" })] }));
++const ProteusVerified = (props) => ((0, jsx_runtime_1.jsxs)(SVGIcon_1.SVGIcon, { realWidth: 16, realHeight: 16, ...props, children: [(0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M15 1.87197V8C15 12 12.0344 15.0977 8 16C4.00718 15.0977 1 12 1 8V2L8 0L15 1.87197Z", fill: "#0b5d73" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M8 16C4.00718 15.0977 1 12 1 8V2L8 0C8 0 8 13 8 16Z", fill: "#66c5dc" })] }));
+ exports.ProteusVerified = ProteusVerified;
+diff --git a/lib/Identity/Logo/Logo.js b/lib/Identity/Logo/Logo.js
+index 8ad25913c673dbf574a9aaf9247cca3ae5863306..00bbd4ec98bd1686df386d38f45a6b740b036a09 100644
+--- a/lib/Identity/Logo/Logo.js
++++ b/lib/Identity/Logo/Logo.js
+@@ -14,5 +14,5 @@ const logoStyle = (theme, { hover, color = theme.general.color }) => ({
+         transition: motions_1.defaultTransition,
+     },
+ });
+-const Logo = ({ hover, ariaLabel, ...props }) => ((0, jsx_runtime_1.jsx)(SVGIcon_1.SVGIcon, { realWidth: 57, realHeight: 18, css: (theme) => logoStyle(theme, { hover, ...props }), ...props, role: "img", "aria-label": ariaLabel, children: (0, jsx_runtime_1.jsx)("path", { d: "M10.857 14.767a5.45 5.45 0 0 1-1.277-3.51l.002-8.688c0-.708.573-1.284 1.277-1.284s1.277.576 1.277 1.284l-.002 8.687a5.45 5.45 0 0 1-1.277 3.51zm9.58-3.51c0 3.01-2.409 5.458-5.402 5.458a5.413 5.413 0 0 1-3.233-1.073 6.72 6.72 0 0 0 1.61-4.386l.002-8.687A2.565 2.565 0 0 0 10.859 0a2.565 2.565 0 0 0-2.555 2.569l-.002 8.687c0 1.675.64 3.206 1.65 4.386a5.413 5.413 0 0 1-3.233 1.073c-2.993 0-5.442-2.449-5.442-5.459V.66H0v10.597C0 14.975 3.035 18 6.733 18a6.681 6.681 0 0 0 4.164-1.458A6.587 6.587 0 0 0 15.028 18c3.698 0 6.686-3.025 6.686-6.744V.66h-1.278v10.597zm5.11 6.403h1.278V.624h-1.277V17.66zM38.008.327a7.337 7.337 0 0 0-6.073 3.233V.624h-1.278V17.66h1.278V7.72c0-3.367 2.725-6.106 6.073-6.106V.327zm2.394 13.705c-2.485-2.965-2.342-7.416.432-10.208a7.478 7.478 0 0 1 10.141-.436L40.401 14.032zM52.784 3.386a8.75 8.75 0 0 0-12.854-.471c-3.424 3.446-3.424 9.054 0 12.5a8.75 8.75 0 0 0 12.417.002l-.903-.91a7.478 7.478 0 0 1-10.14.434l5.285-5.32 6.195-6.235zM53.964.77h.447v1.16h.136V.77h.45V.643h-1.033V.77zM56.34.643l-.445 1.116L55.45.643h-.21v1.286h.131V.779l.457 1.15h.124l.455-1.145v1.145h.132V.643h-.201z" }) }));
++const Logo = ({ hover, ariaLabel, ...props }) => ((0, jsx_runtime_1.jsx)(SVGIcon_1.SVGIcon, { realWidth: 57, realHeight: 18, css: (theme) => logoStyle(theme, { hover, ...props }), ...props, role: "img", "aria-label": ariaLabel, children: (0, jsx_runtime_1.jsx)("path", { transform: "scale(0.15)", d: "M18 62C18 22 102 22 102 62c-6 6-10 6-14 0-4 6-10 6-14 0-4 6-10 6-14 0-4 6-10 6-14 0-4 6-10 6-14 0-4 6-8 6-14 0Z" }) }));
+ exports.Logo = Logo;
+diff --git a/lib/Identity/colors-v2/colors-v2.js b/lib/Identity/colors-v2/colors-v2.js
+index 9b2d40d133dd5c103e5a3c268730219e496f6801..4483da04a2105c27dc15e1723e8db636b920097e 100644
+--- a/lib/Identity/colors-v2/colors-v2.js
++++ b/lib/Identity/colors-v2/colors-v2.js
+@@ -21,43 +21,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.COLOR_V2 = exports.BASE_DARK_COLOR = exports.BASE_LIGHT_COLOR = void 0;
+ exports.BASE_LIGHT_COLOR = {
+     AMBER: '#a25915',
+-    BLUE: '#0667c8',
++    BLUE: '#0e7490',
+     GREEN: '#1d7833',
+-    PURPLE: '#8944ab',
++    PURPLE: '#5b6672',
+     RED: '#c20013',
+     TURQUOISE: '#01718e',
+ };
+ exports.BASE_DARK_COLOR = {
+     AMBER: '#ffd426',
+-    BLUE: '#54a6ff',
++    BLUE: '#22d3ee',
+     GREEN: '#30db5b',
+     TURQUOISE: '#5de6ff',
+-    PURPLE: '#da8fff',
++    PURPLE: '#c3ccd5',
+     RED: '#ff7770',
+ };
+ const LIGHT_BLUE = {
+-    BLUE_LIGHT_50: '#e7f0fa',
+-    BLUE_LIGHT_100: '#cde1f4',
+-    BLUE_LIGHT_200: '#9bc2e9',
+-    BLUE_LIGHT_300: '#6aa4de',
+-    BLUE_LIGHT_400: '#3885d3',
++    BLUE_LIGHT_50: '#e6f6fa',
++    BLUE_LIGHT_100: '#cceef5',
++    BLUE_LIGHT_200: '#99dceb',
++    BLUE_LIGHT_300: '#66c5dc',
++    BLUE_LIGHT_400: '#2a93ad',
+     BLUE_LIGHT_500: exports.BASE_LIGHT_COLOR.BLUE,
+-    BLUE_LIGHT_600: '#0552a0',
+-    BLUE_LIGHT_700: '#043e78',
+-    BLUE_LIGHT_800: '#022950',
+-    BLUE_LIGHT_900: '#19324d',
++    BLUE_LIGHT_600: '#0b5d73',
++    BLUE_LIGHT_700: '#084656',
++    BLUE_LIGHT_800: '#062f3a',
++    BLUE_LIGHT_900: '#0a3f47',
+ };
+ const DARK_BLUE = {
+-    BLUE_DARK_50: '#eef7ff',
+-    BLUE_DARK_100: '#ddedff',
+-    BLUE_DARK_200: '#bbdbff',
+-    BLUE_DARK_300: '#98caff',
+-    BLUE_DARK_400: '#76b8ff',
++    BLUE_DARK_50: '#ecfdff',
++    BLUE_DARK_100: '#cff9fe',
++    BLUE_DARK_200: '#a5f1fb',
++    BLUE_DARK_300: '#7be8f7',
++    BLUE_DARK_400: '#4fdcf2',
+     BLUE_DARK_500: exports.BASE_DARK_COLOR.BLUE,
+-    BLUE_DARK_600: '#4385cc',
+-    BLUE_DARK_700: '#326499',
+-    BLUE_DARK_800: '#224266',
+-    BLUE_DARK_900: '#19324d',
++    BLUE_DARK_600: '#1ba9be',
++    BLUE_DARK_700: '#147f8f',
++    BLUE_DARK_800: '#0e545f',
++    BLUE_DARK_900: '#0a3f47',
+ };
+ const LIGHT_GREEN = {
+     GREEN_LIGHT_50: '#e8f1ea',
+@@ -108,28 +108,28 @@ const DARK_TURQUOISE = {
+     TURQUOISE_DARK_900: '#1c454d',
+ };
+ const LIGHT_PURPLE = {
+-    PURPLE_LIGHT_50: '#f4edf7',
+-    PURPLE_LIGHT_100: '#e7daee',
+-    PURPLE_LIGHT_200: '#d0b4dd',
+-    PURPLE_LIGHT_300: '#b88fcd',
+-    PURPLE_LIGHT_400: '#a169bc',
++    PURPLE_LIGHT_50: '#f1f3f5',
++    PURPLE_LIGHT_100: '#e3e7ea',
++    PURPLE_LIGHT_200: '#c7ced5',
++    PURPLE_LIGHT_300: '#aab5bf',
++    PURPLE_LIGHT_400: '#838f9b',
+     PURPLE_LIGHT_500: exports.BASE_LIGHT_COLOR.PURPLE,
+-    PURPLE_LIGHT_600: '#6e3689',
+-    PURPLE_LIGHT_700: '#522967',
+-    PURPLE_LIGHT_800: '#371b44',
+-    PURPLE_LIGHT_900: '#412b4d',
++    PURPLE_LIGHT_600: '#49525b',
++    PURPLE_LIGHT_700: '#373d44',
++    PURPLE_LIGHT_800: '#24292e',
++    PURPLE_LIGHT_900: '#3a3d40',
+ };
+ const DARK_PURPLE = {
+-    PURPLE_DARK_50: '#fcf4ff',
+-    PURPLE_DARK_100: '#f8e9ff',
+-    PURPLE_DARK_200: '#f0d2ff',
+-    PURPLE_DARK_300: '#e9bcff',
+-    PURPLE_DARK_400: '#e1a5ff',
++    PURPLE_DARK_50: '#f7f9fa',
++    PURPLE_DARK_100: '#eef1f4',
++    PURPLE_DARK_200: '#e1e6ea',
++    PURPLE_DARK_300: '#d5dbe1',
++    PURPLE_DARK_400: '#cbd3da',
+     PURPLE_DARK_500: exports.BASE_DARK_COLOR.PURPLE,
+-    PURPLE_DARK_600: '#ae72cc',
+-    PURPLE_DARK_700: '#835699',
+-    PURPLE_DARK_800: '#573966',
+-    PURPLE_DARK_900: '#412b4d',
++    PURPLE_DARK_600: '#9ca3aa',
++    PURPLE_DARK_700: '#757a80',
++    PURPLE_DARK_800: '#4e5255',
++    PURPLE_DARK_900: '#3a3d40',
+ };
+ const LIGHT_RED = {
+     RED_LIGHT_50: '#f9e6e8',
+diff --git a/lib/Images/SuccessShield.js b/lib/Images/SuccessShield.js
+index f44b0adbab5aeb65d1bd3c2405f213c77d5f82c8..fae84b96c339eca2ce98ebcd6dd0b6c8bb299736 100644
+--- a/lib/Images/SuccessShield.js
++++ b/lib/Images/SuccessShield.js
+@@ -20,5 +20,5 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+  * along with this program. If not, see http://www.gnu.org/licenses/.
+  *
+  */
+-const SuccessShield = () => ((0, jsx_runtime_1.jsxs)("svg", { width: "240", height: "241", viewBox: "0 0 240 241", fill: "none", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink", children: [(0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M124.995 30.3382L125.813 31.1008L126.372 31.5963L127.228 32.302L128.379 33.1958C131.092 35.2446 134.401 37.3271 138.303 39.2916C149.684 45.0214 163.443 48.4847 179.674 48.4847C185.311 48.4847 189.882 53.0865 189.882 58.763V140.989C189.882 163.089 179.827 181.78 163.083 195.267C149.451 206.247 132.012 212.937 118.426 212.937C104.841 212.937 87.4008 206.247 73.7696 195.267C57.0254 181.78 46.9707 163.089 46.9707 140.989V58.763C46.9707 53.0865 51.5409 48.4847 57.1786 48.4847C73.4093 48.4847 87.168 45.0214 98.5491 39.2916C102.451 37.3271 105.76 35.2446 108.473 33.1958L109.624 32.302L110.797 31.3209L111.208 30.9387C114.985 27.136 120.984 26.9359 124.995 30.3382Z", fill: "url(#paint0_linear_8509_36899)", stroke: "black", strokeWidth: "4.11429" }), (0, jsx_runtime_1.jsx)("rect", { x: "51.0859", y: "52.0981", width: "136.455", height: "120.32", rx: "16.1385", fill: "url(#pattern0_8509_36899)" }), (0, jsx_runtime_1.jsx)("path", { d: "M87.626 105.797C90.3875 105.797 92.6337 108.06 92.6338 110.842L92.6299 127.9C92.6299 131.189 91.4525 134.195 89.4756 136.513C91.2438 137.831 93.4488 138.621 95.8125 138.621C101.498 138.621 106.107 134.108 106.39 128.452L106.403 127.9V107.091H108.907V127.9C108.907 135.202 103.049 141.144 95.7998 141.144C92.7262 141.144 89.9413 140.068 87.7002 138.281C85.4591 140.068 82.6085 141.144 79.5352 141.144C72.2859 141.143 66.3359 135.202 66.3359 127.9V107.091H68.8398V127.9C68.8398 133.812 73.6402 138.621 79.5088 138.621C81.8728 138.621 84.0784 137.831 85.8467 136.513C83.8697 134.195 82.6133 131.189 82.6133 127.9L82.6172 110.842C82.6173 108.06 84.8644 105.797 87.626 105.797ZM144.623 111.521C151.336 104.753 162.258 104.753 168.971 111.521C169.268 111.821 169.552 112.129 169.823 112.445L157.679 124.689L147.316 135.137C153.09 140.048 161.758 139.765 167.196 134.285L168.968 136.07C162.255 142.835 151.335 142.834 144.623 136.067C137.91 129.3 137.91 118.288 144.623 111.521ZM118.929 140.476H116.424V107.022H118.929V140.476ZM140.853 108.966C134.288 108.966 128.946 114.346 128.946 120.958H128.945V140.476H126.44V107.022H128.945V112.787C131.543 108.958 135.911 106.439 140.853 106.439V108.966ZM87.626 108.319C86.2453 108.319 85.1212 109.451 85.1211 110.842L85.1172 127.9C85.1172 130.525 86.0611 132.929 87.6211 134.795C89.181 132.93 90.1249 130.525 90.125 127.901L90.1299 110.842C90.1298 109.451 89.0065 108.32 87.626 108.319ZM166.276 112.451C160.502 107.539 151.832 107.823 146.394 113.306C140.956 118.788 140.673 127.53 145.546 133.352L166.276 112.451Z", fill: "white" }), (0, jsx_runtime_1.jsx)("rect", { x: "144", y: "167.5", width: "50", height: "50", rx: "25", fill: "white" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M169 167.5C155.193 167.5 144 178.693 144 192.5C144 206.307 155.193 217.5 169 217.5C182.807 217.5 194 206.307 194 192.5C194 178.693 182.807 167.5 169 167.5ZM186.875 185.828L164.802 207.681L150.972 194.039L155.391 189.62L164.802 198.842L182.455 181.409L186.875 185.828Z", fill: "#1D7833" }), (0, jsx_runtime_1.jsxs)("defs", { children: [(0, jsx_runtime_1.jsx)("pattern", { id: "pattern0_8509_36899", patternContentUnits: "objectBoundingBox", width: "0.0236539", height: "0.0268259", children: (0, jsx_runtime_1.jsx)("use", { xlinkHref: "#image0_8509_36899", transform: "scale(0.00295674 0.00335324)" }) }), (0, jsx_runtime_1.jsxs)("linearGradient", { id: "paint0_linear_8509_36899", x1: "160.772", y1: "200.018", x2: "62.5707", y2: "35.9853", gradientUnits: "userSpaceOnUse", children: [(0, jsx_runtime_1.jsx)("stop", { offset: "0.82932" }), (0, jsx_runtime_1.jsx)("stop", { offset: "1", stopColor: "#54A6FF" })] }), (0, jsx_runtime_1.jsx)("image", { id: "image0_8509_36899", width: "8", height: "8", preserveAspectRatio: "none", xlinkHref: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAACZJREFUGBljYGBg+A/EuAA+OVx6CIiDjEQxlomABipJo9iJZuZ/AC8NBf1LtGs1AAAAAElFTkSuQmCC" })] })] }));
++const SuccessShield = () => ((0, jsx_runtime_1.jsxs)("svg", { width: "240", height: "241", viewBox: "0 0 240 241", fill: "none", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink", children: [(0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M124.995 30.3382L125.813 31.1008L126.372 31.5963L127.228 32.302L128.379 33.1958C131.092 35.2446 134.401 37.3271 138.303 39.2916C149.684 45.0214 163.443 48.4847 179.674 48.4847C185.311 48.4847 189.882 53.0865 189.882 58.763V140.989C189.882 163.089 179.827 181.78 163.083 195.267C149.451 206.247 132.012 212.937 118.426 212.937C104.841 212.937 87.4008 206.247 73.7696 195.267C57.0254 181.78 46.9707 163.089 46.9707 140.989V58.763C46.9707 53.0865 51.5409 48.4847 57.1786 48.4847C73.4093 48.4847 87.168 45.0214 98.5491 39.2916C102.451 37.3271 105.76 35.2446 108.473 33.1958L109.624 32.302L110.797 31.3209L111.208 30.9387C114.985 27.136 120.984 26.9359 124.995 30.3382Z", fill: "url(#paint0_linear_8509_36899)", stroke: "black", strokeWidth: "4.11429" }), (0, jsx_runtime_1.jsx)("rect", { x: "51.0859", y: "52.0981", width: "136.455", height: "120.32", rx: "16.1385", fill: "url(#pattern0_8509_36899)" }), (0, jsx_runtime_1.jsx)("path", { d: "M87.626 105.797C90.3875 105.797 92.6337 108.06 92.6338 110.842L92.6299 127.9C92.6299 131.189 91.4525 134.195 89.4756 136.513C91.2438 137.831 93.4488 138.621 95.8125 138.621C101.498 138.621 106.107 134.108 106.39 128.452L106.403 127.9V107.091H108.907V127.9C108.907 135.202 103.049 141.144 95.7998 141.144C92.7262 141.144 89.9413 140.068 87.7002 138.281C85.4591 140.068 82.6085 141.144 79.5352 141.144C72.2859 141.143 66.3359 135.202 66.3359 127.9V107.091H68.8398V127.9C68.8398 133.812 73.6402 138.621 79.5088 138.621C81.8728 138.621 84.0784 137.831 85.8467 136.513C83.8697 134.195 82.6133 131.189 82.6133 127.9L82.6172 110.842C82.6173 108.06 84.8644 105.797 87.626 105.797ZM144.623 111.521C151.336 104.753 162.258 104.753 168.971 111.521C169.268 111.821 169.552 112.129 169.823 112.445L157.679 124.689L147.316 135.137C153.09 140.048 161.758 139.765 167.196 134.285L168.968 136.07C162.255 142.835 151.335 142.834 144.623 136.067C137.91 129.3 137.91 118.288 144.623 111.521ZM118.929 140.476H116.424V107.022H118.929V140.476ZM140.853 108.966C134.288 108.966 128.946 114.346 128.946 120.958H128.945V140.476H126.44V107.022H128.945V112.787C131.543 108.958 135.911 106.439 140.853 106.439V108.966ZM87.626 108.319C86.2453 108.319 85.1212 109.451 85.1211 110.842L85.1172 127.9C85.1172 130.525 86.0611 132.929 87.6211 134.795C89.181 132.93 90.1249 130.525 90.125 127.901L90.1299 110.842C90.1298 109.451 89.0065 108.32 87.626 108.319ZM166.276 112.451C160.502 107.539 151.832 107.823 146.394 113.306C140.956 118.788 140.673 127.53 145.546 133.352L166.276 112.451Z", fill: "white" }), (0, jsx_runtime_1.jsx)("rect", { x: "144", y: "167.5", width: "50", height: "50", rx: "25", fill: "white" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M169 167.5C155.193 167.5 144 178.693 144 192.5C144 206.307 155.193 217.5 169 217.5C182.807 217.5 194 206.307 194 192.5C194 178.693 182.807 167.5 169 167.5ZM186.875 185.828L164.802 207.681L150.972 194.039L155.391 189.62L164.802 198.842L182.455 181.409L186.875 185.828Z", fill: "#1D7833" }), (0, jsx_runtime_1.jsxs)("defs", { children: [(0, jsx_runtime_1.jsx)("pattern", { id: "pattern0_8509_36899", patternContentUnits: "objectBoundingBox", width: "0.0236539", height: "0.0268259", children: (0, jsx_runtime_1.jsx)("use", { xlinkHref: "#image0_8509_36899", transform: "scale(0.00295674 0.00335324)" }) }), (0, jsx_runtime_1.jsxs)("linearGradient", { id: "paint0_linear_8509_36899", x1: "160.772", y1: "200.018", x2: "62.5707", y2: "35.9853", gradientUnits: "userSpaceOnUse", children: [(0, jsx_runtime_1.jsx)("stop", { offset: "0.82932" }), (0, jsx_runtime_1.jsx)("stop", { offset: "1", stopColor: "#22d3ee" })] }), (0, jsx_runtime_1.jsx)("image", { id: "image0_8509_36899", width: "8", height: "8", preserveAspectRatio: "none", xlinkHref: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAACZJREFUGBljYGBg+A/EuAA+OVx6CIiDjEQxlomABipJo9iJZuZ/AC8NBf1LtGs1AAAAAElFTkSuQmCC" })] })] }));
+ exports.SuccessShield = SuccessShield;
+diff --git a/lib/Images/WavesPattern.js b/lib/Images/WavesPattern.js
+index e2504ef74a658ac2fa0fd7bff172a958ff52a164..997311d40b37dd4940dd5efc59578b6d759efb04 100644
+--- a/lib/Images/WavesPattern.js
++++ b/lib/Images/WavesPattern.js
+@@ -26,5 +26,5 @@ const WavesPattern = () => ((0, jsx_runtime_1.jsxs)("svg", { css: {
+         width: '100%',
+         height: 'auto',
+         left: 0,
+-    }, width: "457", height: "311", viewBox: "0 0 457 311", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M841.651 -527.209C964.429 -307.492 902.996 -233.095 657.354 -304.019C411.713 -374.943 350.28 -300.546 473.058 -80.829C595.835 138.888 534.402 213.285 288.761 142.361C43.1188 71.4374 -18.3134 145.834 104.464 365.551C227.241 585.269 165.809 659.665 -79.8332 588.741", stroke: "#54A6FF", strokeWidth: "8.46296", strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)("path", { d: "M812.808 -272.458C823.01 -144.581 764.405 -95.9381 636.992 -126.53C509.579 -157.121 450.974 -108.479 461.177 19.3985C471.38 147.276 412.775 195.918 285.362 165.327C157.949 134.735 99.3436 183.378 109.546 311.255C119.749 439.132 61.144 487.775 -66.2689 457.183", stroke: "#FFE57D", strokeWidth: "6.77037", strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)("path", { d: "M383.347 148.382C413.674 260.208 374.864 292.421 266.917 245.021C158.969 197.62 120.159 229.833 150.486 341.659C180.813 453.485 142.003 485.698 34.0553 438.297C-73.892 390.897 -112.702 423.11 -82.3753 534.936C-52.0485 646.762 -90.8587 678.975 -198.806 631.574M849.424 -238.409C879.751 -126.583 840.941 -94.37 732.994 -141.771C625.046 -189.171 586.236 -156.959 616.563 -45.1322C646.89 66.6941 608.08 98.9069 500.132 51.5063C392.185 4.10561 353.375 36.3184 383.702 148.145C414.029 259.971 375.218 292.184 267.271 244.783", stroke: "#30DB5B", strokeWidth: "7.86659", strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)("path", { d: "M-137.046 621.16C-107.536 538.457 -48.8093 488.749 39.1334 472.036C127.076 455.324 185.802 405.616 215.313 322.913C244.823 240.21 303.549 190.502 391.492 173.79C479.434 157.078 538.161 107.37 567.671 24.6669C597.181 -58.0361 655.907 -107.744 743.85 -124.456", stroke: "#DA8FFF", strokeWidth: "2.94997", strokeLinecap: "round" })] }));
++    }, width: "457", height: "311", viewBox: "0 0 457 311", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M841.651 -527.209C964.429 -307.492 902.996 -233.095 657.354 -304.019C411.713 -374.943 350.28 -300.546 473.058 -80.829C595.835 138.888 534.402 213.285 288.761 142.361C43.1188 71.4374 -18.3134 145.834 104.464 365.551C227.241 585.269 165.809 659.665 -79.8332 588.741", stroke: "#22d3ee", strokeWidth: "8.46296", strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)("path", { d: "M812.808 -272.458C823.01 -144.581 764.405 -95.9381 636.992 -126.53C509.579 -157.121 450.974 -108.479 461.177 19.3985C471.38 147.276 412.775 195.918 285.362 165.327C157.949 134.735 99.3436 183.378 109.546 311.255C119.749 439.132 61.144 487.775 -66.2689 457.183", stroke: "#FFE57D", strokeWidth: "6.77037", strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)("path", { d: "M383.347 148.382C413.674 260.208 374.864 292.421 266.917 245.021C158.969 197.62 120.159 229.833 150.486 341.659C180.813 453.485 142.003 485.698 34.0553 438.297C-73.892 390.897 -112.702 423.11 -82.3753 534.936C-52.0485 646.762 -90.8587 678.975 -198.806 631.574M849.424 -238.409C879.751 -126.583 840.941 -94.37 732.994 -141.771C625.046 -189.171 586.236 -156.959 616.563 -45.1322C646.89 66.6941 608.08 98.9069 500.132 51.5063C392.185 4.10561 353.375 36.3184 383.702 148.145C414.029 259.971 375.218 292.184 267.271 244.783", stroke: "#30DB5B", strokeWidth: "7.86659", strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)("path", { d: "M-137.046 621.16C-107.536 538.457 -48.8093 488.749 39.1334 472.036C127.076 455.324 185.802 405.616 215.313 322.913C244.823 240.21 303.549 190.502 391.492 173.79C479.434 157.078 538.161 107.37 567.671 24.6669C597.181 -58.0361 655.907 -107.744 743.85 -124.456", stroke: "#c3ccd5", strokeWidth: "2.94997", strokeLinecap: "round" })] }));
+ exports.WavesPattern = WavesPattern;
+diff --git a/lib/Inputs/SecondaryButton/SecondaryButton.style.js b/lib/Inputs/SecondaryButton/SecondaryButton.style.js
+index c41f880c26c200124dd3fbdb7d40650f25fe733c..aac9451d1d15d8c3e0cd762f8a5b46e2260da79e 100644
+--- a/lib/Inputs/SecondaryButton/SecondaryButton.style.js
++++ b/lib/Inputs/SecondaryButton/SecondaryButton.style.js
+@@ -54,13 +54,13 @@ exports.styles = {
+             color: 'var(--Content-Base-Primary, #000000)',
+         },
+         '&:hover:not(:disabled)': {
+-            border: '1px solid var(--accent-color-focus, var(--Border-Accent-Color-Primary, #0667C8))',
++            border: '1px solid var(--accent-color-focus, var(--Border-Accent-Color-Primary, #0e7490))',
+             background: 'var(--Background-Base-Secondary-focus, #E5E8EA)',
+         },
+         '&:focus-visible:not(:disabled)': {
+-            border: '1px solid var(--accent-color-focus, var(--Border-Accent-Color-Primary, #0667C8))',
++            border: '1px solid var(--accent-color-focus, var(--Border-Accent-Color-Primary, #0e7490))',
+             background: 'var(--Background-Base-Secondary-focus, #E5E8EA)',
+-            boxShadow: '0 0 0 2px var(--accent-color-100, var(--border-base-focus, #6AA4DE))',
++            boxShadow: '0 0 0 2px var(--accent-color-100, var(--border-base-focus, #66c5dc))',
+         },
+         '&:disabled': {
+             border: '1px solid var(--Border-Base-Primary, #DCE0E3)',
+@@ -80,13 +80,13 @@ exports.styles = {
+                 color: 'var(--Content-Base-Primary, #FFFFFF)',
+             },
+             '&:hover:not(:disabled)': {
+-                border: '1px solid var(--accent-color-focus, var(--Border-Accent-Color-Primary, #54A6FF))',
++                border: '1px solid var(--accent-color-focus, var(--Border-Accent-Color-Primary, #22d3ee))',
+                 background: 'var(--Background-Base-Secondary-focus, #54585F)',
+             },
+             '&:focus-visible:not(:disabled)': {
+-                border: '1px solid var(--accent-color-focus, var(--Border-Accent-Color-Primary, #54A6FF))',
++                border: '1px solid var(--accent-color-focus, var(--Border-Accent-Color-Primary, #22d3ee))',
+                 background: 'var(--Background-Base-Secondary-focus, #54585F)',
+-                boxShadow: '0 0 0 2px var(--accent-color-100, var(--border-base-focus, #6AA4DE))',
++                boxShadow: '0 0 0 2px var(--accent-color-100, var(--border-base-focus, #66c5dc))',
+             },
+             '&:disabled': {
+                 border: '1px solid var(--Border-Base-Primary, #34373D)',

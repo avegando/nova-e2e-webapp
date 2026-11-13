@@ -21,13 +21,14 @@ import React from 'react';
 
 import {FormattedMessage} from 'react-intl';
 
-import {CloseIcon, Content, Footer, Header, Link, Small} from '@wireapp/react-ui-kit';
+import {CloseIcon, Content, Footer, Header, Link} from '@wireapp/react-ui-kit';
 
 import {LogoFullIcon} from 'Components/Icon';
 import {t} from 'Util/localizerUtil';
 
 import {Config} from '../../Config';
 import {EXTERNAL_ROUTE} from '../externalRoute';
+import {NovaLogo} from './NovaLogo';
 
 interface WirelessContainerProps {
   children: React.ReactNode;
@@ -93,12 +94,11 @@ const WirelessContainer = ({showCookiePolicyBanner, onCookiePolicyBannerClose, c
       )}
       <Content>
         <Header style={{height: '40px', marginLeft: '8px', marginTop: '20px'}}>
-          <LogoFullIcon width={70} height={22} />
+          <NovaLogo variant="compact" width={110} />
         </Header>
         <Content style={{flex: '1', paddingLeft: '8px', width: '100%'}}>{children}</Content>
         <Footer style={{height: '30px', justifyContent: 'flex-end', margin: '0 0 18px 8px'}}>
           <Link href={EXTERNAL_ROUTE.WIRE_WEBSITE}>{Config.getConfig().WEBSITE_LABEL}</Link>
-          <Small> &middot; {t('footer.copy')}</Small>
         </Footer>
       </Content>
     </div>

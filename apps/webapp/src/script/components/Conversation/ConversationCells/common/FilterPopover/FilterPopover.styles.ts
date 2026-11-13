@@ -261,7 +261,7 @@ export const clearAllButtonStyles: CSSObject = {
   background: 'transparent',
   cursor: 'pointer',
   fontSize: '13px',
-  color: 'var(--accent-color, #0667C8)',
+  color: 'var(--accent-color, #0e7490)',
   padding: '2px 4px',
   '&:hover': {
     textDecoration: 'underline',

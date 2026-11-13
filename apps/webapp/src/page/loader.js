@@ -21,8 +21,8 @@
 const HALF_MINUTE_IN_MS = 30000;
 
 const translations = {
-  de: `<p>Laden von Wire dauert länger als erwartet.</p><p>Bitte überprüfen Sie Ihre Internetverbindung.</p>`,
-  en: `<p>Loading Wire takes longer than expected.</p><p>Please check your internet connection.</p>`,
+  de: `<p>Laden von NovaE²E dauert länger als erwartet.</p><p>Bitte überprüfen Sie Ihre Internetverbindung.</p>`,
+  en: `<p>Loading NovaE²E takes longer than expected.</p><p>Please check your internet connection.</p>`,
 };
 
 const userLang = navigator.language;

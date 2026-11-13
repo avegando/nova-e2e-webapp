@@ -52,6 +52,7 @@ import type {MessageCategory} from '../../../message/MessageCategory';
 import {StatusType} from '../../../message/StatusType';
 import {SuperType} from '../../../message/SuperType';
 import {User} from '../User';
+import {normalizeAccentId} from 'src/script/Config';
 
 export class Message {
   private messageTimerStarted: boolean;
@@ -146,7 +147,7 @@ export class Message {
       return this.user().name();
     });
 
-    this.accent_color = ko.pureComputed(() => `accent-color-${this.user().accent_id()}`);
+    this.accent_color = ko.pureComputed(() => `accent-color-${normalizeAccentId(this.user().accent_id())}`);
   }
 
   public get qualifiedFrom(): QualifiedId {

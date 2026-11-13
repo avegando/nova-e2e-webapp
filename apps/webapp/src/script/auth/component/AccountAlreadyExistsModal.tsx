@@ -40,13 +40,13 @@ export const AccountAlreadyExistsModal = ({onClose}: AccountAlreadyExistsModalPr
           {t('accountAlreadyExistsModal.content')}
         </Text>
         <Text block>
-          👉{' '}
+          <span aria-hidden="true">›</span>{' '}
           <Link href={changeEmailAddressUrl} target="_blank" css={linkCss}>
             {t('accountAlreadyExistsModal.changeEmailLink')}
           </Link>
         </Text>
         <Text block>
-          👉{' '}
+          <span aria-hidden="true">›</span>{' '}
           <Link href={deletePersonalAccountUrl} target="_blank" css={linkCss}>
             {t('accountAlreadyExistsModal.deletePersonalAccount')}
           </Link>

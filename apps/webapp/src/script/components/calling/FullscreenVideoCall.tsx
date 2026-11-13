@@ -81,6 +81,9 @@ import {VideoControls} from './VideoControls/VideoControls';
 
 import {useWarningsState} from '../../view_model/WarningsContainer/WarningsState';
 import {CONFIG, TYPE} from '../../view_model/WarningsContainer/WarningsTypes';
+import {useAppMainState, ViewType} from 'src/script/page/state';
+import {generateConversationUrl} from 'src/script/router/routeGenerator';
+import {navigate} from 'src/script/router/Router';
 
 export interface FullscreenVideoCallProps {
   activeCallViewTab: string;
@@ -193,6 +196,12 @@ const FullscreenVideoCall = ({
     }
 
     callingRepository.setViewModeMinimized();
+
+    // NovaE2E, phones: minimising leads straight to the chat of this call (the call continues in the bar at the top)
+    if (window.matchMedia('(max-width: 720px)').matches && !isDetachedWindow) {
+      useAppMainState.getState().responsiveView.setCurrentView(ViewType.MOBILE_CENTRAL_COLUMN);
+      navigate(generateConversationUrl(conversation.qualifiedId));
+    }
   };
   const openPopup = () => callingRepository.setViewModeDetached();
 

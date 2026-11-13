@@ -23,8 +23,6 @@ import {QualifiedId} from '@wireapp/api-client/lib/user';
 import cx from 'classnames';
 import ko from 'knockout';
 
-import {OutlineCheck} from '@wireapp/react-ui-kit';
-
 import {ReadIndicator} from 'Components/MessagesList/Message/ReadIndicator';
 import {useClickOutside} from 'Hooks/useClickOutside';
 import {Conversation} from 'Repositories/entity/Conversation';
@@ -35,7 +33,6 @@ import {useRelativeTimestamp} from 'src/script/hooks/useRelativeTimestamp';
 import {StatusType} from 'src/script/message/StatusType';
 import {useKoSubscribableChildren} from 'Util/componentUtil';
 import {getMessageAriaLabel} from 'Util/conversationMessages';
-import {t} from 'Util/localizerUtil';
 
 import {ContentAsset} from './asset';
 import {deliveredMessageIndicator, messageBodyWrapper, messageEphemeralTimer} from './ContentMessage.styles';
@@ -51,6 +48,7 @@ import {EphemeralStatusType} from '../../../../message/EphemeralStatusType';
 import {ContextMenuEntry} from '../../../../ui/ContextMenu';
 import {EphemeralTimer} from '../EphemeralTimer';
 import {MessageTime} from '../MessageTime';
+import {NovaMessageTicks} from '../NovaMessageTicks';
 import {useMessageFocusedTabIndex} from '../util';
 
 export interface ContentMessageProps extends Omit<MessageActions, 'onClickResetSession'> {
@@ -272,18 +270,16 @@ export const ContentMessageComponent = ({
           )}
         </div>
 
-        {message.expectsReadConfirmation && (
-          <div css={deliveredMessageIndicator}>
-            {is1to1 === true && isLastDeliveredMessage && (
-              <div
-                data-uie-name="status-message-read-receipt-delivered"
-                title={t('conversationMessageDelivered')}
-                className="delivered-message-icon"
-              >
-                <OutlineCheck />
-              </div>
-            )}
+        {message.user().isMe ? (
+          <div css={deliveredMessageIndicator} className="nova-ticks-column">
+            <NovaMessageTicks
+              message={message}
+              is1to1={is1to1 === true}
+              otherMembers={conversation.participating_user_ids().length}
+            />
           </div>
+        ) : (
+          message.expectsReadConfirmation && <div css={deliveredMessageIndicator} />
         )}
       </div>
 

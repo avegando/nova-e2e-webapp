@@ -54,7 +54,6 @@ import {
   useMatchMedia,
 } from '@wireapp/react-ui-kit';
 
-import {LogoFullIcon} from 'Components/Icon';
 import {t} from 'Util/localizerUtil';
 import {getLogger} from 'Util/logger';
 import {isBackendError} from 'Util/typePredicateUtil';
@@ -62,6 +61,7 @@ import {isBackendError} from 'Util/typePredicateUtil';
 import {separator} from './login.styles';
 
 import {Config} from '../../../Config';
+import {NovaLogo} from '../../component/NovaLogo';
 import {AccountAlreadyExistsModal} from '../../component/AccountAlreadyExistsModal';
 import {AppAlreadyOpen} from '../../component/AppAlreadyOpen';
 import {BackButton} from '../../component/BackButton';
@@ -400,13 +400,7 @@ const LoginComponent = ({
       ) : (
         <Container centerText verticalCenter style={{width: '100%'}}>
           {isEnterpriseLoginV2Enabled && isTablet && (
-            <LogoFullIcon
-              aria-hidden="true"
-              width={102}
-              height={33}
-              style={{marginBottom: '80px'}}
-              data-uie-name="ui-wire-logo"
-            />
+            <NovaLogo width={230} style={{marginBottom: '56px', maxWidth: '100%', height: 'auto'}} data-uie-name="ui-wire-logo" />
           )}
           {embedded !== true && <AppAlreadyOpen />}
           {isLinkPasswordModalOpen && (

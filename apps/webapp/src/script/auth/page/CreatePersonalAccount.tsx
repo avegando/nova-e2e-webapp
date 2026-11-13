@@ -30,7 +30,7 @@ import {Config} from '../../Config';
 import {AccountForm} from '../component/AccountForm';
 import {AccountRegistrationLayout} from '../component/AccountRegistrationLayout';
 import {BackButton} from '../component/BackButton';
-import {EXTERNAL_ROUTE} from '../externalRoute';
+import {NovaLogo} from '../component/NovaLogo';
 import {ROUTE} from '../route';
 
 export const CreatePersonalAccount = () => {
@@ -48,6 +48,11 @@ export const CreatePersonalAccount = () => {
       <AccountRegistrationLayout>
         <FlexBox>
           <FlexBox css={styles.container}>
+            <NovaLogo
+              width={210}
+              css={{display: 'none', margin: '0 auto 28px', '@media (max-width: 1024px)': {display: 'block'}}}
+              data-uie-name="ui-wire-logo"
+            />
             <div css={styles.backButtonContainer}>
               <BackButton />
             </div>
@@ -55,10 +60,6 @@ export const CreatePersonalAccount = () => {
               {t('createPersonalAccount.headLine')}
             </p>
             <AccountForm onSubmit={onSubmit} />
-            <p css={styles.footer}>{t('createPersonalAccount.subHeader')}</p>
-            <a css={styles.teamCreateButton} href={EXTERNAL_ROUTE.WIRE_TEAMS_SIGNUP} target="_blank" rel="noreferrer">
-              {t('createPersonalAccount.createTeamButton')}
-            </a>
           </FlexBox>
         </FlexBox>
       </AccountRegistrationLayout>
